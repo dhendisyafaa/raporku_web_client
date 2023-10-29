@@ -3,7 +3,7 @@ import React from "react";
 
 const SettingsPage = () => {
   return (
-    <DashboardLayout messageHeader={""} titleHeader={""}>
+    <DashboardLayout messageHeader={"Edit akunmu"} titleHeader={"Pengaturan"}>
       <p>Pengaturan</p>
     </DashboardLayout>
   );
