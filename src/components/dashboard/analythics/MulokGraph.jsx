@@ -42,7 +42,7 @@ const MulokGraph = () => {
 
   return (
     <Card>
-      <Title className="font-bold">Grafik Muatan Lokal Selama 3 tahun</Title>
+      <Title className="font-bold">Grafik Nilai Muatan Lokal</Title>
       <AreaChart
         className="mt-6"
         data={ChartMulokData}
