@@ -1,25 +1,6 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import RaporTable from "@/components/dashboard/rapor/RaporTable";
-import { StatusOnlineIcon } from "@heroicons/react/outline";
-import {
-  Badge,
-  Card,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-  Text,
-  Title,
-} from "@tremor/react";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@tremor/react";
 
 const RaporPage = () => {
   const dataRapor = [
@@ -131,56 +112,49 @@ const RaporPage = () => {
     },
   ];
 
-  return (
-    <DashboardLayout messageHeader={""} titleHeader={"Laporan Hasil Belajar"}>
-      <Card>
-        <div className="text-center">
-          <Text>Laporan Hasil Belajar (RAPOR)</Text>
-          <Text>Dhendi Syafa Athallah Putra</Text>
-          <Text>0120301340</Text>
-        </div>
-        {/* <Tabs defaultValue="Semester 1" className="w-screen lg:w-full">
-          <TabsList>
-            <TabsTrigger value="Semester 1">Semester 1</TabsTrigger>
-            <TabsTrigger value="Semester 2">Semester 2</TabsTrigger>
-            <TabsTrigger value="Semester 3">Semester 3</TabsTrigger>
-            <TabsTrigger value="Semester 4">Semester 4</TabsTrigger>
-            <TabsTrigger value="Semester 5">Semester 5</TabsTrigger>
-            <TabsTrigger value="Semester 6">Semester 6</TabsTrigger>
-          </TabsList>
-          <TabsContent value="Semester 1">
-            <RaporTable
-              dataEskul={dataEskul}
-              dataKehadiran={dataKehadiran}
-              dataRapor={dataRapor}
-            />
-          </TabsContent>
-          <TabsContent value="Semester 2">Semester 2</TabsContent>
-        </Tabs> */}
+  const tabSemester = [
+    {
+      title: "PTS 1",
+    },
+    {
+      title: "PAS 1",
+    },
+    {
+      title: "PTS 2",
+    },
+    {
+      title: "PAS 2",
+    },
+  ];
 
-        <TabGroup className="w-screen lg:w-full">
-          <TabList className="mt-8 flex overflow-x-scroll w-max">
-            <Tab>Semester 1</Tab>
-            <Tab>Semester 2</Tab>
-            <Tab>Semester 3</Tab>
-            <Tab>Semester 4</Tab>
-            <Tab>Semester 5</Tab>
-            <Tab>Semester 6</Tab>
+  return (
+    <DashboardLayout
+      messageHeader={"test"}
+      titleHeader={"Laporan Hasil Belajar"}
+    >
+      <div className="w-screen h-screen md:w-full">
+        <TabGroup>
+          <TabList color="red" variant="solid">
+            {tabSemester.map((item, index) => (
+              <Tab key={index}>{item.title}</Tab>
+            ))}
           </TabList>
           <TabPanels>
             <TabPanel>
               <RaporTable
+                className="overflow-x-auto"
                 dataEskul={dataEskul}
                 dataKehadiran={dataKehadiran}
                 dataRapor={dataRapor}
               />
+              {/* <p>1</p> */}
             </TabPanel>
             <TabPanel>
               <p>2</p>
             </TabPanel>
           </TabPanels>
         </TabGroup>
-      </Card>
+      </div>
     </DashboardLayout>
   );
 };
