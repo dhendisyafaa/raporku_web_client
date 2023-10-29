@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { BarChart3, BookCheck, LogOut, UserCog } from "lucide-react";
+import { signOut } from "next-auth/react";
 import NavigationSidebar from "./NavigationSidebar";
 import ProfileSidebar from "./ProfileSidebar";
 
@@ -15,9 +15,24 @@ const SidebarComponent = ({
     />,
     <NavigationSidebar
       key={2}
-      href={"/dashboard/rapor"}
+      href={""}
       icon={<BookCheck />}
       title={"Hasil Belajarmu"}
+      multiLevel={true}
+      level={[
+        {
+          href: "/dashboard/rapor/10",
+          title: "Kelas 10",
+        },
+        {
+          href: "/dashboard/rapor/11",
+          title: "Kelas 11",
+        },
+        {
+          href: "/dashboard/rapor/12",
+          title: "Kelas 12",
+        },
+      ]}
     />,
     <NavigationSidebar
       key={3}
@@ -26,6 +41,7 @@ const SidebarComponent = ({
       title={"Pengaturan"}
     />,
   ];
+
   return (
     <div className={`${style}`}>
       <ProfileSidebar />
@@ -34,7 +50,13 @@ const SidebarComponent = ({
         <div className="flex flex-col gap-2">{navSidebar}</div>
         <div>
           <hr className="mb-3" />
-          <NavigationSidebar icon={<LogOut />} title={"Keluar"} />
+          <button
+            onClick={() => signOut()}
+            className="w-full h-[40px] rounded-lg flex gap-3 items-center p-3 cursor-pointer"
+          >
+            <LogOut />
+            <p className="text-sm">Keluar</p>
+          </button>
         </div>
       </div>
     </div>

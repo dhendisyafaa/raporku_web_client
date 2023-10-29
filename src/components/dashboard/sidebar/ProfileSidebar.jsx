@@ -4,13 +4,15 @@ import React from "react";
 
 const ProfileSidebar = () => {
   return (
-    <div className="flex justify-center items-center flex-col">
+    <div className="flex justify-center items-center flex-col h-[30vh] lg:h-[40vh]">
       <div className="relative">
         <Avatar className="w-20 h-20">
           <AvatarImage alt="@shadcn" src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <Badge className="absolute bottom-0 -right-3">siswa</Badge>
+        <Badge className="absolute bottom-0 right-0 text-[10px] border-2 border-white">
+          Siswa
+        </Badge>
       </div>
       <div className="text-center">
         <div className="my-2">
