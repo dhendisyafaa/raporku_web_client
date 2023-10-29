@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import MulokGraph from "@/components/dashboard/analythics/MulokGraph";
 import RankingGraph from "@/components/dashboard/analythics/RankingGraph";
-import { Card, Title } from "@tremor/react";
+import { Bold, Card, Text } from "@tremor/react";
 
 const DashboardPage = () => {
   const cards = [
@@ -15,29 +15,25 @@ const DashboardPage = () => {
     },
   ];
 
-  // function sortDataByRanking(data) {
-  //   // Menggunakan metode `sort` untuk mengurutkan data berdasarkan peringkat (Ranking).
-  //   const sortedData = data.sort((a, b) => b.Ranking - a.Ranking);
-  //   return sortedData;
-  // }
-
-  // const sortedChartRanking = sortDataByRanking(chartRanking);
-
-  // const valueFormatter = (number) => number.sort().reverse();
-
-  // const reversedData = chartRanking.slice().reverse();
+  const gender = "";
+  const name = "";
 
   return (
-    <DashboardLayout messageHeader={""} titleHeader={""}>
+    <DashboardLayout
+      messageHeader={`Selamat datang ${gender} ${name}`}
+      titleHeader={"Dashboard"}
+    >
       <div className="flex flex-col gap-3">
-        <div class="lg:flex gap-3 p-1 grid overflow-x-auto scrollbar-hide">
+        <div className="lg:flex gap-3 p-1 grid overflow-x-auto scrollbar-hide">
           {cards.map((data, index) => (
             <Card
-              className="w-full lg:w-[250px] lg:min-w-fit min-h-[100px] max-h-fit"
+              decoration="top"
+              decorationColor="red"
+              className="w-full lg:w-[250px] lg:min-w-fit min-h-[100px] max-h-fit font-bold"
               key={index}
             >
-              <Title className="font-bold">{data.title}</Title>
-              <p className="font-bold text-2xl">{data.value}</p>
+              <Bold>{data.title}</Bold>
+              <Text>{data.value}</Text>
             </Card>
           ))}
         </div>
