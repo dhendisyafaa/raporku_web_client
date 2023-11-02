@@ -1,6 +1,4 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { MenuIcon } from "lucide-react";
-import SidebarComponent from "./sidebar/SidebarComponent";
+import SheetSidebar from "./sidebar/SheetSidebar";
 
 const HeaderDashboard = ({
   title = "Grafik Pencapaian Belajarmu",
@@ -13,14 +11,7 @@ const HeaderDashboard = ({
         <p className="font-medium text-sm">{message}</p>
       </div>
       <div className="lg:hidden">
-        <Sheet>
-          <SheetTrigger>
-            <MenuIcon />
-          </SheetTrigger>
-          <SheetContent>
-            <SidebarComponent style={"flex flex-col gap-5 h-full"} />
-          </SheetContent>
-        </Sheet>
+        <SheetSidebar />
       </div>
     </div>
   );
