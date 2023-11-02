@@ -127,7 +127,11 @@ const LoginFormStudent = () => {
                 </FormItem>
               )}
             />
-            <ButtonComponent title="Masuk" loading={loadingButton} />
+            <ButtonComponent
+              buttonLoading={true}
+              title="Masuk"
+              loading={loadingButton}
+            />
           </form>
         </Form>
       </CardContent>

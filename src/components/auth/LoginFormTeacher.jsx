@@ -119,6 +119,7 @@ const LoginFormTeacher = () => {
               )}
             />
             <ButtonComponent
+              buttonLoading={true}
               title="Masuk"
               loading={loadingButton}
               error={isError.error}
