@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const DashboardLayout = ({ children, messageHeader, titleHeader }) => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-50">
       <SidebarComponent />
       <div className="flex flex-1 flex-col gap-3 m-2 lg:m-4">
         <HeaderDashboard message={messageHeader} title={titleHeader} />

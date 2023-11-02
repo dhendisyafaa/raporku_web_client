@@ -15,7 +15,6 @@ const NavigationSidebar = ({
   const [isOpen, setIsOpen] = useState(false);
   const hiddenDropdown =
     multiLevel === true && isOpen === true ? "block" : "hidden";
-  console.log(level);
   const openDropdown = (e) => {
     e.preventDefault();
     setIsOpen(!isOpen);
@@ -44,7 +43,7 @@ const NavigationSidebar = ({
               </div>
             </div>
           </Link>
-          <ul class={cn(`py-2 space-y-2`, hiddenDropdown)}>
+          <ul className={cn(`py-2 space-y-2`, hiddenDropdown)}>
             {level?.map((item, index) => {
               const href = item.href;
               return (
