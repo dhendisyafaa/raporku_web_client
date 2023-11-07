@@ -15,7 +15,8 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import ButtonComponent from "../button/ButtonComponent";
+import LoadingOval from "../common/LoadingOval";
+import { Button } from "../ui/button";
 import { Toaster } from "../ui/toaster";
 
 const LoginFormStudent = () => {
@@ -64,7 +65,6 @@ const LoginFormStudent = () => {
         callbackUrl: callbackUrl,
       });
       if (!signInData?.error) {
-        setloadingButton(false);
         push("/dashboard");
       } else {
         console.log("signInData?.error", signInData?.error);
@@ -127,27 +127,13 @@ const LoginFormStudent = () => {
                 </FormItem>
               )}
             />
-            <ButtonComponent
-              buttonLoading={true}
-              title="Masuk"
-              loading={loadingButton}
-            />
+            <Button disabled={loadingButton} className="flex gap-3">
+              {loadingButton && <LoadingOval />}
+              Masuk
+            </Button>
           </form>
         </Form>
       </CardContent>
-      {/* <CardContent className="space-y-2">
-        <div className="space-y-1">
-          <Label htmlFor="nik">NIS</Label>
-          <Input id="nik" type="number" />
-        </div>
-        <div className="space-y-1">
-          <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password" />
-        </div>
-      </CardContent> */}
-      {/* <CardFooter>
-        <Button>Masuk</Button>
-      </CardFooter> */}
     </Card>
   );
 };
