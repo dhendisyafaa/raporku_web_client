@@ -1,18 +1,18 @@
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { cn } from "@/lib/utils";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import ButtonComponent from "../button/ButtonComponent";
 import SheetSidebar from "../dashboard/sidebar/SheetSidebar";
+import { Button } from "../ui/button";
 
 const NavbarComponent = () => {
   const scrollPosition = useScrollPosition();
   const { asPath, push } = useRouter();
-  // const { data: session } = useSession();
-  // console.log("session", session);
-  const session = false;
+  const { data: session } = useSession();
+  console.log("session", session);
+  // const session = false;
   return (
     <div
       className={cn(
@@ -56,14 +56,14 @@ const NavbarComponent = () => {
           </div>
         </div>
         {!session ? (
-          <ButtonComponent
-            customStyle={"bg-orange text-white py-2 px-5 hover:bg-orange/90"}
+          <Button
+            variant="orange"
             onClick={() => {
               signIn();
             }}
-            title="Masuk"
-            defaultButton={true}
-          />
+          >
+            Masuk
+          </Button>
         ) : (
           <div className="mt-2">
             <SheetSidebar />
