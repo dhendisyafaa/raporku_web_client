@@ -4,15 +4,15 @@ import LoginFormTeacher from "./LoginFormTeacher";
 
 const UserAuthForm = () => {
   return (
-    <Tabs defaultValue="account" className="w-[90%] md:w-[400px]">
+    <Tabs defaultValue="student" className="w-[90%] md:w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="account">Siswa</TabsTrigger>
-        <TabsTrigger value="password">Guru</TabsTrigger>
+        <TabsTrigger value="student">Siswa</TabsTrigger>
+        <TabsTrigger value="teacher">Guru</TabsTrigger>
       </TabsList>
-      <TabsContent value="account">
+      <TabsContent value="student">
         <LoginFormStudent />
       </TabsContent>
-      <TabsContent value="password">
+      <TabsContent value="teacher">
         <LoginFormTeacher />
       </TabsContent>
     </Tabs>
