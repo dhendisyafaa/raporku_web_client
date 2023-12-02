@@ -34,8 +34,8 @@ const LoginFormTeacher = () => {
       .min(2, {
         message: "Kata sandi wajib untuk diisi",
       })
-      .min(8, {
-        message: "Kata sandi minimal 8 karakter",
+      .min(5, {
+        message: "Kata sandi minimal 5 karakter",
       }),
   });
 
@@ -53,15 +53,21 @@ const LoginFormTeacher = () => {
     try {
       const callbackUrl = query.callbackUrl || "/";
       const signInData = await signIn("credentials", {
-        ...values,
+        username: `${values.username}${loginTeacher}`,
+        password: values.password,
         redirect: false,
         callbackUrl: callbackUrl,
       });
       if (!signInData?.error) {
+        toast({
+          title: "Yeay, berhasil login!",
+          description: "Anda akan langsung diarahkan ke halaman dashboard",
+        });
+        setloadingButton(false);
         push("/dashboard");
       } else {
-        console.log("signInData?.error", signInData?.error);
         setloadingButton(false);
+        console.log("signInData?.error", signInData?.error);
         toast({
           variant: "destructive",
           title: "Gagal untuk login!",
