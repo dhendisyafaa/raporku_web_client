@@ -1,7 +1,7 @@
 import { nextAuthSecret } from "@/configs/config";
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { loginUser } from "./userApi";
+import { loginUser } from "../services/authApi";
 
 export const authOptions = {
   session: {
@@ -35,9 +35,8 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      account.access_token = user.data.access_token;
-      account.role = user.data.role;
-      account.name = user.data.name;
+      account.access_token = user.data.accessToken;
+      account.level = user.data.level;
       account.username = user.data.username;
       account.userId = user.data.userId;
       return true;
@@ -45,7 +44,7 @@ export const authOptions = {
     async jwt({ token, account }) {
       if (account) {
         token.access_token = account.access_token;
-        token.role = account.role;
+        token.level = account.level;
         token.name = account.name;
         token.username = account.username;
         token.userId = account.userId;
@@ -53,11 +52,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token, user }) {
-      session.access_token = token.access_token;
-      session.role = token.role;
-      session.name = token.name;
-      session.username = token.username;
-      session.userId = token.userId;
+      session.user = token;
       return session;
     },
   },
