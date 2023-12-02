@@ -11,12 +11,10 @@ const NavbarComponent = () => {
   const scrollPosition = useScrollPosition();
   const { asPath, push } = useRouter();
   const { data: session } = useSession();
-  console.log("session", session);
-  // const session = false;
   return (
     <div
       className={cn(
-        `bg-white flex items-center justify-between p-4 shadow-lg rounded w-full m-auto duration-300 z-[999]`,
+        `bg-white flex items-center justify-between p-4 shadow-lg shadow-primary/10 rounded w-full m-auto duration-300 z-[999]`,
         scrollPosition > 0 ? "md:mt-0 md:px-16" : "md:w-[90%] md:mt-6 md:px-6"
       )}
     >
@@ -29,7 +27,7 @@ const NavbarComponent = () => {
             alt="nomyly-logo"
             className="rounded-full"
           />
-          <p className="text-lg font-semibold">RAPORKU</p>
+          <p className="text-lg font-semibold text-navy">RAPORKU</p>
         </div>
       </Link>
       <div className="flex gap-11 items-center ">
@@ -37,8 +35,8 @@ const NavbarComponent = () => {
           <div
             className={
               asPath === "/"
-                ? "text-orange font-semibold"
-                : "text-grey font-normal"
+                ? "text-primary font-semibold"
+                : "text-foreground font-normal"
             }
           >
             <Link href={"/"}>Home</Link>
@@ -46,8 +44,8 @@ const NavbarComponent = () => {
           <div
             className={
               asPath === "/#fitur"
-                ? "text-orange font-semibold"
-                : "text-grey font-normal"
+                ? "text-primary font-semibold"
+                : "text-foreground font-normal"
             }
           >
             <Link href="#fitur" scroll={false}>
@@ -57,7 +55,7 @@ const NavbarComponent = () => {
         </div>
         {!session ? (
           <Button
-            variant="orange"
+            variant="primary"
             onClick={() => {
               signIn();
             }}

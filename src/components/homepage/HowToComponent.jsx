@@ -7,14 +7,16 @@ const HowToComponent = () => {
   return (
     <div className="flex flex-col items-center m-auto justify-center gap-5 text-center min-h-[50vh] md:w-[70%] lg:w-[60%]">
       <p className="text-navy text-2xl lg:text-4xl font-medium lg:font-semibold">
-        Bagaimana pembuatan akun siswa, guru, dan admin sekolah?
+        Bagaimana{" "}
+        <span className="underline decoration-primary">pembuatan akun</span>{" "}
+        siswa, guru, dan admin sekolah?
       </p>
-      <p className="text-lg text-grey leading-snug">
+      <p className="text-lg text-foreground leading-snug">
         Hubungi admin dibawah untuk siswa atau guru yang baru bergabung dalam
-        lingkungan sekolah ini, atau untuk mendapatkan akses sebagai admin!
+        lingkungan sekolah, atau untuk mendapatkan akses sebagai admin!
       </p>
       <Button
-        variant="orange"
+        variant="primary"
         onClick={() => push(`${phoneNumberAdmin}`)}
         size="lg"
         className="flex gap-2 items-center"
@@ -27,7 +29,7 @@ const HowToComponent = () => {
         </svg>
         Hubungi Admin
       </Button>
-      <p className="text-xs text-grey">
+      <p className="text-xs text-foreground">
         Tautan ini akan membawa Anda ke WhatsApp
       </p>
     </div>
