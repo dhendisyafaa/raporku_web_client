@@ -1,47 +1,39 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
-import MulokGraph from "@/components/dashboard/analythics/MulokGraph";
-import RankingGraph from "@/components/dashboard/analythics/RankingGraph";
-import { Bold, Card, Text } from "@tremor/react";
+import ContentDashboardAdmin from "@/components/dashboard/content/ContentDashboardAdmin";
+import ContentDashboardGuru from "@/components/dashboard/content/ContentDashboardGuru";
+import ContentDashboardSiswa from "@/components/dashboard/content/ContentDashboardSiswa";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { getUserById } from "../api/services/userApi";
+import { useUserStateFunction } from "@/constate/provider/useUserProfile";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useUserById } from "../api/resolver/userResolver";
+import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import useUserData from "@/hooks/useUserData";
 
 const DashboardPage = () => {
-  const cards = [
-    {
-      title: "Semester",
-      value: "5",
-    },
-    {
-      title: "Tahun masuk - lulus",
-      value: "2021 - 2024",
-    },
-  ];
+  const { isLoading, level } = useUserData();
 
-  const gender = "";
-  const name = "";
+  const content = {
+    siswa: <ContentDashboardSiswa />,
+    guru: <ContentDashboardGuru />,
+    admin: <ContentDashboardAdmin />,
+  };
+
+  if (isLoading)
+    return (
+      <div className="w-full h-screen">
+        <ThreeDotsLoading />
+      </div>
+    );
 
   return (
     <DashboardLayout
-      messageHeader={`Selamat datang ${gender} ${name}`}
       titleHeader={"Dashboard"}
+      messageHeader={`Selamat datang di dashboard Raporku!`}
     >
-      <div className="flex flex-col gap-3">
-        <div className="lg:flex gap-3 p-1 grid overflow-x-auto scrollbar-hide">
-          {cards.map((data, index) => (
-            <Card
-              decoration="top"
-              decorationColor="red"
-              className="w-full lg:w-[250px] lg:min-w-fit min-h-[100px] max-h-fit font-bold"
-              key={index}
-            >
-              <Bold>{data.title}</Bold>
-              <Text>{data.value}</Text>
-            </Card>
-          ))}
-        </div>
-        <div className="flex flex-col gap-3 p-1">
-          <MulokGraph />
-          <RankingGraph />
-        </div>
-      </div>
+      {content[level]}
     </DashboardLayout>
   );
 };
