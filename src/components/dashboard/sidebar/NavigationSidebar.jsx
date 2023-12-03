@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const NavigationSidebar = ({
   title,
@@ -30,7 +30,7 @@ const NavigationSidebar = ({
             `w-full h-[40px] rounded-lg p-3 flex gap-3 items-center justify-between transition duration-75`,
             href == router.asPath
               ? "bg-primary/10 text-primary font-semibold border-l-4 border-primary"
-              : "hover:bg-primary/10 text-zinc-600"
+              : "hover:bg-primary/10 hover:text-primary duration-100 text-zinc-600"
           )}
         >
           <div className="flex gap-3 items-center">
@@ -38,11 +38,16 @@ const NavigationSidebar = ({
             <p className="text-sm">{title}</p>
           </div>
           <div className={cn(multiLevel === true ? "block" : "hidden")}>
-            <ChevronDown className="text-zinc-600" />
+            <ChevronDown
+              className={
+                (`text-zinc-600`,
+                isOpen && "rotate-180 transition-all duration-150")
+              }
+            />
           </div>
         </div>
       </Link>
-      <ul className={cn(`py-2 space-y-2`, hiddenDropdown)}>
+      <ul className={cn(`py-2 space-y-2 ${hiddenDropdown}`)}>
         {level?.map((item, index) => {
           const href = item.href;
           return (
@@ -53,7 +58,7 @@ const NavigationSidebar = ({
                   `w-full h-[40px] rounded-lg p-3 flex gap-3 items-center justify-between transition duration-75 pl-11 `,
                   href == router.asPath
                     ? "bg-red-600/10 text-red-600 font-semibold border-l-4 border-red-600"
-                    : "hover:bg-red-600/10 text-sm text-zinc-600"
+                    : "hover:bg-red-600/10 text-sm hover:text-primary duration-100 text-zinc-600"
                 )}
               >
                 {item.title}
@@ -66,4 +71,4 @@ const NavigationSidebar = ({
   );
 };
 
-export default NavigationSidebar;
+export default memo(NavigationSidebar);

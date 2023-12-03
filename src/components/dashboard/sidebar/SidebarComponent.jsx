@@ -1,20 +1,34 @@
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { baseUrlWeb } from "@/configs/config";
+import useUserData from "@/hooks/useUserData";
+import {
   BarChart3,
   BookCheck,
   GraduationCap,
   HomeIcon,
   LogOut,
   School,
-  School2,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
+import { memo } from "react";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { GiBookPile } from "react-icons/gi";
+import { SiGoogleclassroom } from "react-icons/si";
 import NavigationSidebar from "./NavigationSidebar";
 import ProfileSidebar from "./ProfileSidebar";
-import useUserData from "@/hooks/useUserData";
-import SkeletonSidebar from "@/components/skeleton/SkeletonSidebar";
 
 const SidebarComponent = ({
-  style = "bg-white w-[300px] h-full shadow p-3 hidden lg:flex flex-col gap-5",
+  style = "bg-white w-[350px] h-full shadow p-3 hidden lg:flex flex-col gap-5",
 }) => {
   const { level } = useUserData();
 
@@ -31,27 +45,6 @@ const SidebarComponent = ({
       icon={<BookCheck />}
       title={"Hasil Belajarmu"}
     />,
-    // <NavigationSidebar
-    //   key={2}
-    //   href={""}
-    //   icon={<BookCheck />}
-    //   title={"Hasil Belajarmu"}
-    //   multiLevel={true}
-    //   level={[
-    //     {
-    //       href: "/dashboard/rapor/10",
-    //       title: "Kelas 10",
-    //     },
-    //     {
-    //       href: "/dashboard/rapor/11",
-    //       title: "Kelas 11",
-    //     },
-    //     {
-    //       href: "/dashboard/rapor/12",
-    //       title: "Kelas 12",
-    //     },
-    //   ]}
-    // />,
   ];
 
   const sidebarGuru = [
@@ -96,7 +89,7 @@ const SidebarComponent = ({
     <NavigationSidebar
       key={3}
       href={""}
-      icon={<School2 />}
+      icon={<FaChalkboardTeacher className="w-6 h-6" />}
       title={"Kelola Guru"}
       multiLevel={true}
       level={[
@@ -130,7 +123,7 @@ const SidebarComponent = ({
     <NavigationSidebar
       key={6}
       href={""}
-      icon={<School />}
+      icon={<SiGoogleclassroom className="w-6 h-6" />}
       title={"Kelola Kelas"}
       multiLevel={true}
       level={[
@@ -147,7 +140,7 @@ const SidebarComponent = ({
     <NavigationSidebar
       key={7}
       href={""}
-      icon={<School />}
+      icon={<GiBookPile className="w-6 h-6" />}
       title={"Kelola Mata Pelajaran"}
       multiLevel={true}
       level={[
@@ -179,17 +172,39 @@ const SidebarComponent = ({
         </div>
         <div>
           <hr className="mb-3" />
-          <button
-            onClick={() => signOut()}
-            className="w-full h-[40px] rounded-lg flex gap-3 items-center p-3 cursor-pointer"
-          >
-            <LogOut />
-            <p className="text-sm">Keluar</p>
-          </button>
+          <AlertDialog>
+            <AlertDialogTrigger className="w-full h-[40px] rounded-lg flex gap-3 items-center p-3 cursor-pointer">
+              <LogOut />
+              <p className="text-sm">Keluar</p>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Yakin ingin keluar dari dashboard?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  Untuk mengakses halaman dashboard ini, Anda harus melakukan
+                  login kembali
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Batal</AlertDialogCancel>
+                <AlertDialogAction
+                  onClick={() =>
+                    signOut({
+                      callbackUrl: baseUrlWeb,
+                    })
+                  }
+                >
+                  Keluar
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </div>
     </div>
   );
 };
 
-export default SidebarComponent;
+export default memo(SidebarComponent);
