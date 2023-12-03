@@ -11,16 +11,16 @@ const HeroComponent = () => {
       <div className="md:grid md:grid-cols-2 gap-3 mx-auto py-10 mt-20">
         <div className="h-full flex flex-col items-start justify-center gap-6 lg:w-[90%]">
           <p className="text-4xl lg:text-5xl font-bold text-navy leading-tight lg:leading-tight">
-            <span className="text-orange">#Upgrade Diri</span> untuk menjadi
+            <span className="text-primary">#Upgrade Diri</span> untuk menjadi
             pelajar yang lebih baik
           </p>
-          <p className="text-grey text-base lg:text-lg leading-relaxed">
+          <p className="text-foreground text-base lg:text-lg leading-relaxed">
             Solusi yang komprehensif dan modern untuk mengelola dan memantau
             pendidikan di sekolah
           </p>
           <Button
             size="lg"
-            variant="orange"
+            variant="primary"
             className="flex items-center gap-3 group"
             onClick={() => push("/dashboard")}
           >

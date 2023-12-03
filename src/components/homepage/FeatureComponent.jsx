@@ -36,9 +36,9 @@ const FeatureComponent = () => {
       <div className="space-y-4">
         <p className="text-navy text-2xl lg:text-4xl font-medium lg:font-semibold">
           Kenapa harus pakai{" "}
-          <span className="underline decoration-orange">Raporku</span>?
+          <span className="underline decoration-primary">Raporku</span>?
         </p>
-        <p className="text-lg text-grey leading-snug">
+        <p className="text-lg text-foreground leading-snug">
           Aplikasi ini memberikan kemudahan akses data bagi siswa, guru, dan
           admin sekolah. Memungkinkan visualisasi yang jelas tentang
           perkembangan siswa, serta meningkatkan efisiensi manajemen data

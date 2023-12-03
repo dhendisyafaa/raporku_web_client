@@ -41,8 +41,8 @@ const LoginFormStudent = () => {
       .min(2, {
         message: "Kata sandi wajib untuk diisi",
       })
-      .min(8, {
-        message: "Kata sandi minimal 8 karakter",
+      .min(5, {
+        message: "Kata sandi minimal 5 karakter",
       }),
   });
 
@@ -55,7 +55,6 @@ const LoginFormStudent = () => {
   });
 
   const onSubmit = async (values) => {
-    console.log("values", values);
     setloadingButton(true);
     try {
       const callbackUrl = query.callbackUrl || "/";
@@ -65,14 +64,20 @@ const LoginFormStudent = () => {
         callbackUrl: callbackUrl,
       });
       if (!signInData?.error) {
-        push("/dashboard");
-      } else {
-        console.log("signInData?.error", signInData?.error);
+        toast({
+          title: "Yeay, berhasil login!",
+          description: "Anda akan langsung diarahkan ke halaman dashboard",
+        });
         setloadingButton(false);
+        push(callbackUrl);
+        // push("/dashboard");
+      } else {
+        setloadingButton(false);
+        console.log("signInData?.error", signInData);
         toast({
           variant: "destructive",
           title: "Gagal untuk login!",
-          description: "NIS atau kata sandi salah",
+          description: "NIS tidak ditemukan",
         });
       }
     } catch (error) {

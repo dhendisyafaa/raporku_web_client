@@ -1,25 +1,59 @@
+import SkeletonProfile from "@/components/skeleton/SkeletonProfile";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import React from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import useUserData from "@/hooks/useUserData";
+import UserAvatar from "./UserAvatar";
 
 const ProfileSidebar = () => {
+  const { isLoading, userData, level, username, userId } = useUserData();
+
+  if (isLoading) return <SkeletonProfile />;
+
   return (
     <div className="flex justify-center items-center flex-col h-[30vh] lg:h-[40vh]">
-      <div className="relative">
-        <Avatar className="w-20 h-20">
-          <AvatarImage alt="@shadcn" src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-        <Badge className="absolute bottom-0 right-0 text-[10px] border-2 border-white">
-          Siswa
-        </Badge>
-      </div>
+      <UserAvatar
+        data={{
+          userData,
+          level,
+          username,
+          userId,
+        }}
+      />
       <div className="text-center">
         <div className="my-2">
-          <p className="font-bold text-sm">Dhendi Syafa Athallah Putra</p>
-          <p className="font-medium text-xs">0120301340</p>
+          {level !== "admin" ? (
+            <>
+              <p className="font-bold text-sm">{userData?.nama_lengkap}</p>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>
+                    <p className="font-medium text-xs">
+                      {level === "siswa"
+                        ? `${userData?.nis}`
+                        : `${userData?.nip}`}
+                    </p>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{level === "siswa" ? "NIS" : "NIP"}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </>
+          ) : (
+            <p className="py-1 px-3 bg-gradient-to-r from-red-400 via-primary to-purple-500 text-white font-semibold text-xs rounded-lg">
+              DASHBOARD ADMIN
+            </p>
+          )}
         </div>
-        <Badge>XII RPL 1</Badge>
+        {level === "siswa" && <Badge>{userData?.kelas.nama_kelas}</Badge>}
+        {level === "guru" && (
+          <Badge>{`Wali kelas ${userData?.wali_kelas.nama_kelas}`}</Badge>
+        )}
       </div>
     </div>
   );
