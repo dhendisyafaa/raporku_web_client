@@ -126,7 +126,7 @@ const FormEditStudent = ({ student }) => {
       <FormEditAvatar
         image={student?.avatar}
         username={student?.nama_lengkap}
-        idUser={student?.id_guru}
+        idUser={student?.id_siswa}
         levelUser="siswa"
       />
       <Form {...form}>

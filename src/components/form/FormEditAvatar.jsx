@@ -1,4 +1,7 @@
-import { useUpdateAvatar } from "@/pages/api/resolver/avatarResolver";
+import {
+  useRemoveAvatar,
+  useUpdateAvatar,
+} from "@/pages/api/resolver/avatarResolver";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import LoadingOval from "../common/LoadingOval";
@@ -16,9 +19,11 @@ import { Input } from "../ui/input";
 
 const FormEditAvatar = ({ image, username, idUser, levelUser }) => {
   const [loadingButton, setloadingButton] = useState(false);
+  const { mutateAsync: removeAvatar } = useRemoveAvatar();
   const { mutateAsync: updateAvatar } = useUpdateAvatar();
   const [preview, setPreview] = useState("");
   const [file, setFile] = useState("");
+  const [warningFile, setWarningFile] = useState();
 
   const form = useForm({});
 
@@ -33,6 +38,17 @@ const FormEditAvatar = ({ image, username, idUser, levelUser }) => {
     } catch (error) {
       setloadingButton(false);
       console.log("error catch", error);
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    try {
+      await removeAvatar({
+        level: levelUser,
+        id: idUser,
+      });
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
@@ -51,68 +67,83 @@ const FormEditAvatar = ({ image, username, idUser, levelUser }) => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="flex items-center sm:items-end flex-wrap gap-3">
-          {preview ? (
-            <Avatar className="w-20 h-20 border-primary border-2">
-              <AvatarImage
-                className="object-cover"
-                alt="new avatar"
-                src={preview}
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex items-center sm:items-end flex-wrap gap-3">
+            {preview ? (
+              <Avatar className="w-20 h-20 border-primary border-2">
+                <AvatarImage
+                  className="object-cover"
+                  alt="new avatar"
+                  src={preview}
+                />
+                <AvatarFallback>newAvatar</AvatarFallback>
+              </Avatar>
+            ) : (
+              <Avatar className="w-20 h-20 border-primary border-2">
+                <AvatarImage
+                  className="object-cover"
+                  alt={`avatar from @${username}`}
+                  src={image}
+                />
+                <AvatarFallback>{username}</AvatarFallback>
+              </Avatar>
+            )}
+            <div className="grid w-full max-w-[200px] gap-1.5">
+              <FormField
+                control={form.control}
+                name="avatar"
+                render={({ field: { onChange, value, ...rest } }) => (
+                  <>
+                    <FormItem>
+                      <FormLabel>Pilih foto profil (max 3MB)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          name="avatar"
+                          multiple={true}
+                          disabled={form.formState.isSubmitting}
+                          {...rest}
+                          onChange={(event) => {
+                            const { files, displayUrl } = getImageData(event);
+                            setPreview(displayUrl);
+                            onChange(files);
+                            setWarningFile(
+                              files[0].size > 3000000
+                                ? "Ukuran foto lebih dari 3MB"
+                                : null
+                            );
+                          }}
+                        />
+                      </FormControl>
+                      {warningFile && (
+                        <p className="text-destructive text-xs">{`*${warningFile}`}</p>
+                      )}
+                    </FormItem>
+                  </>
+                )}
               />
-              <AvatarFallback>newAvatar</AvatarFallback>
-            </Avatar>
-          ) : (
-            <Avatar className="w-20 h-20 border-primary border-2">
-              <AvatarImage
-                className="object-cover"
-                alt={`avatar from @${username}`}
-                src={image}
-              />
-              <AvatarFallback>{username}</AvatarFallback>
-            </Avatar>
-          )}
-          <div className="grid w-full max-w-[200px] gap-1.5">
-            <FormField
-              control={form.control}
-              name="avatar"
-              render={({ field: { onChange, value, ...rest } }) => (
-                <>
-                  <FormItem>
-                    <FormLabel>Ganti Foto Profil</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        name="avatar"
-                        multiple={true}
-                        disabled={form.formState.isSubmitting}
-                        {...rest}
-                        onChange={(event) => {
-                          const { files, displayUrl } = getImageData(event);
-                          setPreview(displayUrl);
-                          onChange(files);
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                </>
-              )}
-            />
+            </div>
+            <Button
+              type="submit"
+              disabled={loadingButton || !preview || warningFile !== null}
+              className="flex gap-3 w-full sm:max-w-fit"
+            >
+              {loadingButton && <LoadingOval />}
+              Ganti Foto
+            </Button>
           </div>
-          <Button
-            type="submit"
-            disabled={loadingButton || !preview}
-            className="flex gap-3 w-full sm:max-w-fit"
-          >
-            {loadingButton && <LoadingOval />}
-            Ganti Foto
-          </Button>
-        </div>
-      </form>
-    </Form>
+        </form>
+      </Form>
+      <div
+        className="text-primary border w-fit mt-3 cursor-pointer hover:underline decoration-primary"
+        onClick={() => handleRemoveAvatar()}
+      >
+        Hapus Foto Profile
+      </div>
+    </>
   );
 };
 

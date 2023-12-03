@@ -1,18 +1,37 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useQueryNoRefecth from "../hooks/useQueryNoRefetch";
-import { updateAvatar } from "../services/avatarApi";
+import { removeAvatar, updateAvatar } from "../services/avatarApi";
 
 const useUpdateAvatar = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    // mutationFn: (data) => console.log(data[0], data[1], data[2]),
     mutationFn: (data) => updateAvatar(data[0].level, data[1].id, data[2].data),
-    onSuccess: () => {
+    onSuccess: (data, variables, context) => {
       queryClient.invalidateQueries({
-        queryKey: ["student", data[1].id],
+        queryKey: ["user", variables[0].level, variables[1].id],
       });
+    },
+    onError: (error, variables, context) => {
+      console.error("Gagal menghapus foto profile", error);
+      // Tampilkan pemberitahuan kesalahan di frontend jika diperlukan
     },
   });
 };
 
-export { useUpdateAvatar };
+const useRemoveAvatar = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => removeAvatar(data.level, data.id),
+    onSuccess: (data, variables, context) => {
+      queryClient.invalidateQueries({
+        queryKey: ["user", variables.level, variables.id],
+      });
+    },
+    onError: (error, variables, context) => {
+      console.error("Gagal menghapus foto profile", error);
+      // Tampilkan pemberitahuan kesalahan di frontend jika diperlukan
+    },
+  });
+};
+
+export { useUpdateAvatar, useRemoveAvatar };

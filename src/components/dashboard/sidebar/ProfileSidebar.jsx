@@ -1,6 +1,4 @@
-import SkeletonCard from "@/components/skeleton/SkeletonCard";
 import SkeletonProfile from "@/components/skeleton/SkeletonProfile";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
@@ -9,27 +7,23 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import useUserData from "@/hooks/useUserData";
+import UserAvatar from "./UserAvatar";
 
 const ProfileSidebar = () => {
-  const { isLoading, userData, level } = useUserData();
+  const { isLoading, userData, level, username, userId } = useUserData();
 
   if (isLoading) return <SkeletonProfile />;
 
   return (
     <div className="flex justify-center items-center flex-col h-[30vh] lg:h-[40vh]">
-      <div className="relative">
-        <Avatar className="w-20 h-20 border-primary border-2">
-          <AvatarImage
-            className="object-cover"
-            alt={`avatar from @${userData?.nama_lengkap}`}
-            src={level !== "admin" ? userData?.avatar : "/images/ava.png"}
-          />
-          <AvatarFallback>{userData?.nama_lengkap || "admin"}</AvatarFallback>
-        </Avatar>
-        <Badge className="absolute bottom-0 right-0 text-[10px] border-2 border-white">
-          {level}
-        </Badge>
-      </div>
+      <UserAvatar
+        data={{
+          userData,
+          level,
+          username,
+          userId,
+        }}
+      />
       <div className="text-center">
         <div className="my-2">
           {level !== "admin" ? (
