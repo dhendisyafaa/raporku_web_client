@@ -15,10 +15,6 @@ const ContentDashboardGuru = () => {
     return countGender.length;
   };
 
-  const test = filteredGender("L");
-
-  console.log("test", test);
-
   const CARDS = [
     {
       title: "Jumlah Siswa",
