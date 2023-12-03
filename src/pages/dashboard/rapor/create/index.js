@@ -65,8 +65,8 @@ const CreateRaporAllStudent = () => {
   };
   return (
     <DashboardLayout
-      titleHeader={"Tabel data siswa"}
-      messageHeader={"Berikut semua data siswa pada kelas ini"}
+      titleHeader={"Buat laporan belajar siswa"}
+      messageHeader={"Data yang dimasukkan wajib data yang sebenarnya"}
     >
       {isLoading ? (
         <ThreeDotsLoading />

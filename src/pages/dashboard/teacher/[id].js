@@ -59,21 +59,25 @@ const ProfileForm = ({ teacherId }) => {
           <div className="space-y-3">
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="fullname">Nama lengkap</Label>
-              <Input id="fullname" value={`${teacher?.nama_lengkap}`} disable />
+              <Input
+                id="fullname"
+                value={`${teacher?.nama_lengkap}`}
+                disabled
+              />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="gender">NIP</Label>
-              <Input id="gender" value={`${teacher?.nip}`} disable />
+              <Input id="gender" value={`${teacher?.nip}`} disabled />
             </div>
           </div>
           <div className="space-y-3">
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="gender">Jenis Kelamin</Label>
-              <Input id="gender" value={`${teacher?.jenis_kelamin}`} disable />
+              <Input id="gender" value={`${teacher?.jenis_kelamin}`} disabled />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="phone">Nomor telepon</Label>
-              <Input id="phone" value={`${teacher?.no_telepon}`} disable />
+              <Input id="phone" value={`${teacher?.no_telepon}`} disabled />
             </div>
           </div>
           <div className="space-y-3">
@@ -82,12 +86,12 @@ const ProfileForm = ({ teacherId }) => {
               <Input
                 id="phone"
                 value={`${teacher?.pendidikan_tertinggi}`}
-                disable
+                disabled
               />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="phone">Email Guru</Label>
-              <Input id="phone" value={`${teacher?.email}`} disable />
+              <Input id="phone" value={`${teacher?.email}`} disabled />
             </div>
           </div>
         </div>

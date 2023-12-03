@@ -30,73 +30,12 @@ const AllStudent = () => {
         <TableCell>{student.kelas.nama_kelas}</TableCell>
         <TableCell>{student.jenis_kelamin}</TableCell>
         <TableCell>{`${student.tempat_lahir} / \n${student.tanggal_lahir}`}</TableCell>
-        {/* <TableCell>{student.alamat}</TableCell>
-        <TableCell>{student.no_telepon}</TableCell>
-        <TableCell>{student.nama_ayah}</TableCell>
-        <TableCell>{student.nama_ibu}</TableCell> */}
         <TableCell>{`${student.tahun_masuk} / \n${student.tahun_lulus}`}</TableCell>
         <TableCell>
           <Link href={`student/${student.id_siswa}`}>
             <Button size="sm">Detail</Button>
           </Link>
         </TableCell>
-        {/* <TableCell>
-          <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-            <DialogContent className="h-[95vh] max-w-4xl overflow-y-auto">
-              <FormEditStudent student={student} />
-            </DialogContent>
-          </Dialog>
-          <Dialog open={isViewDetail} onOpenChange={setIsViewDetail}>
-            <DialogContent className="h-[95vh] max-w-4xl overflow-y-auto">
-              <p>{`id ${student.id_siswa}`}</p>
-            </DialogContent>
-          </Dialog>
-          <Dialog
-            open={isDeleteDialogOpen}
-            onOpenChange={setIsDeleteDialogOpen}
-          >
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>
-                  Hapus data {`${student.nama_lengkap}`} ?
-                </DialogTitle>
-                <DialogDescription>
-                  Untuk melanjutkan, ketik &quot;
-                  <span>{`${student.nama_lengkap}`}</span>
-                  &quot; dalam kotak dibawah
-                </DialogDescription>
-                <FormDeleteStudent
-                  namaLengkap={student.nama_lengkap}
-                  idSiswa={student.id_siswa}
-                />
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <MoreHorizontal className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => setIsViewDetail(true)}>
-                Lihat detail siswa
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
-                Edit siswa
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="text-destructive"
-                onClick={() => setIsDeleteDialogOpen(true)}
-              >
-                Hapus siswa
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </TableCell> */}
       </TableRow>
     ));
   };
@@ -108,10 +47,6 @@ const AllStudent = () => {
       "Kelas",
       "L/P",
       "Tempat/Tanggal lahir",
-      // "Alamat",
-      // "Telepon",
-      // "Nama Ayah",
-      // "Nama Ibu",
       "Tahun masuk/lulus",
       "Actions",
     ];
@@ -122,8 +57,8 @@ const AllStudent = () => {
 
   return (
     <DashboardLayout
-      titleHeader={"Tabel data siswa"}
-      messageHeader={"Berikut semua data siswa pada kelas ini"}
+      titleHeader={"Tabel informasi semua siswa"}
+      messageHeader={"Semua data siswa pada sekolah ini"}
     >
       {isLoading ? (
         <ThreeDotsLoading />

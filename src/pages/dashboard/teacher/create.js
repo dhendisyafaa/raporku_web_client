@@ -112,7 +112,7 @@ const CreateTeacher = () => {
 
   return (
     <DashboardLayout
-      titleHeader={"Tambah data siswa"}
+      titleHeader={"Tambah data guru"}
       messageHeader={"Pastikan data yang didaftarkan telah sesuai"}
     >
       <div className="flex w-full justify-around flex-col">

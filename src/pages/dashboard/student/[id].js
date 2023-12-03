@@ -59,24 +59,28 @@ const ProfileForm = ({ studentId }) => {
           <div className="space-y-3">
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="fullname">Nama lengkap</Label>
-              <Input id="fullname" value={`${student?.nama_lengkap}`} disable />
+              <Input
+                id="fullname"
+                value={`${student?.nama_lengkap}`}
+                disabled
+              />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="phone">Nomor telepon</Label>
-              <Input id="phone" value={`${student?.no_telepon}`} disable />
+              <Input id="phone" value={`${student?.no_telepon}`} disabled />
             </div>
           </div>
           <div className="space-y-3">
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="gender">Jenis Kelamin</Label>
-              <Input id="gender" value={`${student?.jenis_kelamin}`} disable />
+              <Input id="gender" value={`${student?.jenis_kelamin}`} disabled />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
               <Label htmlFor="gender">NIS / NISN</Label>
               <Input
                 id="gender"
                 value={`${student?.nis} / ${student?.nisn}`}
-                disable
+                disabled
               />
             </div>
           </div>
@@ -86,7 +90,7 @@ const ProfileForm = ({ studentId }) => {
               <Input
                 id="year"
                 value={`${student?.tahun_masuk} / ${student?.tahun_lulus}`}
-                disable
+                disabled
               />
             </div>
           </div>

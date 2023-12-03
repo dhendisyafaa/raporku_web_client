@@ -33,8 +33,8 @@ const RaporPage = () => {
 
   return (
     <DashboardLayout
-      messageHeader={"test"}
-      titleHeader={"Laporan Hasil Belajar"}
+      titleHeader={"Laporan hasil belajar"}
+      messageHeader={"Berikut semua data rapor Anda"}
     >
       <div className="w-screen h-screen md:w-full">
         <TabGroup index={query.semester - 1}>

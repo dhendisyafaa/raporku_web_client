@@ -56,8 +56,8 @@ const AllTeacher = () => {
 
   return (
     <DashboardLayout
-      titleHeader={"Tabel data guru"}
-      messageHeader={"Berikut semua data guru pada sekolah ini"}
+      titleHeader={"Tabel informasi data guru"}
+      messageHeader={"Semua data guru pada sekolah ini"}
     >
       {isLoading ? (
         <ThreeDotsLoading />

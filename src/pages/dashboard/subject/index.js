@@ -111,7 +111,10 @@ const AllMajor = () => {
     ));
   };
   return (
-    <DashboardLayout messageHeader={"Edit akunmu"} titleHeader={"Pengaturan"}>
+    <DashboardLayout
+      titleHeader={"Mata pelajaran"}
+      messageHeader={"Semua data mata pelajaran"}
+    >
       {isLoading ? (
         <ThreeDotsLoading />
       ) : (
