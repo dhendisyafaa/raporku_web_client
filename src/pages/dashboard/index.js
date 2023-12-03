@@ -13,7 +13,7 @@ import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
 import useUserData from "@/hooks/useUserData";
 
 const DashboardPage = () => {
-  const { isLoading, level } = useUserData();
+  const { isLoading, level, gender, username } = useUserData();
 
   const content = {
     siswa: <ContentDashboardSiswa />,
@@ -28,10 +28,21 @@ const DashboardPage = () => {
       </div>
     );
 
+  let sayHai;
+  if (level === "siswa") {
+    sayHai = gender === "L" ? "Kang" : "Teh";
+  } else if (level === "guru") {
+    sayHai = gender === "L" ? "Pak" : "Bu";
+  } else {
+    sayHai = "admin";
+  }
+
   return (
     <DashboardLayout
-      titleHeader={"Dashboard"}
-      messageHeader={`Selamat datang di dashboard Raporku!`}
+      titleHeader={"Dashboard Raporku"}
+      messageHeader={`Selamat datang ${sayHai} ${
+        level !== "admin" ? username : ""
+      }`}
     >
       {content[level]}
     </DashboardLayout>

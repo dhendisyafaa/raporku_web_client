@@ -34,7 +34,7 @@ export default function App({
         <QueryClientProvider client={queryClient}>
           <SessionProvider session={session}>
             <NextNProgress
-              color="#FE5E44"
+              color="#e11d48"
               startPosition={0.3}
               stopDelayMs={200}
               height={3}
