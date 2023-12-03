@@ -11,9 +11,9 @@ const LoginPage = () => {
       <div className="h-screen lg:flex">
         <div className="w-full h-full bg-zinc-900 hidden relative lg:block lg:w-[50%] text-center text-white">
           <div className="absolute h-full w-full flex justify-center items-center">
-            <div className="text-left mx-auto w-[80%]">
-              <p className="text-3xl font-bold">Selamat Datang!</p>
-              <p className="text-base font-semibold">
+            <div className="text-left mx-auto w-[80%] space-y-2">
+              <p className="text-4xl font-bold">Selamat Datang!</p>
+              <p className="text-lg font-semibold">
                 Anda harus login untuk akses dashboard dengan akunmu yang telah
                 didaftarkan
               </p>
@@ -22,9 +22,9 @@ const LoginPage = () => {
           <Image
             src="/images/gradient-auth.png"
             width={1280}
-            height={843}
+            height={0}
             alt="Authentication"
-            className="h-full w-full object-cover object-center"
+            className="object-cover h-full"
           />
         </div>
         <div className="flex w-full lg:w-[50%] h-full flex-col justify-evenly space-y-6 items-center">
