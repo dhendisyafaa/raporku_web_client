@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import FormDeleteMajor from "@/components/form/FormDeleteMajor";
 import FormEditMajor from "@/components/form/FormEditMajor";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,7 @@ import { useAllClassname } from "@/pages/api/resolver/classnameResolver";
 import { useRouter } from "next/router";
 import FormDeleteClassname from "@/components/form/FormDeleteClassname";
 import FormEditClassname from "@/components/form/FormEditClassname";
+import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 
 const AllMajor = () => {
   const { data: classnames, isLoading } = useAllClassname();
@@ -36,8 +37,6 @@ const AllMajor = () => {
 
   const renderTable = () => {
     return classnames?.data.map((classname) => {
-      const utcDate = new Date(classname.createdAt);
-      const createdAt = utcDate.toLocaleString();
       return (
         <TableRow key={classname.id_kelas}>
           <TableCell className="font-semibold">{classname.id_kelas}</TableCell>
@@ -45,9 +44,20 @@ const AllMajor = () => {
             {classname.nama_kelas}
           </TableCell>
           <TableCell className="font-semibold">
+            {classname?.jurusan?.nama_jurusan}
+          </TableCell>
+          {classname?.wali_kelas ? (
+            <TableCell className="font-semibold">
+              {classname?.wali_kelas?.nama_lengkap}
+            </TableCell>
+          ) : (
+            <TableCell className="text-gray-700">
+              Belum terdapat wali kelas
+            </TableCell>
+          )}
+          <TableCell className="font-semibold">
             {classname.jumlah_siswa}
           </TableCell>
-          <TableCell className="font-semibold">{createdAt}</TableCell>
           <TableCell>
             <div className="flex gap-1">
               <Dialog>
@@ -61,6 +71,7 @@ const AllMajor = () => {
                     infoClassname={{
                       classname: classname.nama_kelas,
                       id_classname: classname.id_kelas,
+                      id_jurusan: classname.id_jurusan,
                     }}
                   />
                 </DialogContent>
@@ -100,9 +111,10 @@ const AllMajor = () => {
   const renderTableHead = () => {
     const dataTableHead = [
       "No/ID",
+      "Nama Kelas",
       "Nama Jurusan",
+      "Wali Kelas",
       "Jumlah Siswa",
-      "Dibuat",
       "Actions",
     ];
     return dataTableHead.map((data, index) => (
@@ -111,12 +123,12 @@ const AllMajor = () => {
   };
   return (
     <DashboardLayout
-      titleHeader={"Tabel semua data jurusan"}
-      messageHeader={"Semua data jurusan"}
+      titleHeader={"Tabel semua data kelas"}
+      messageHeader={"Semua data kelas"}
     >
       {isLoading ? (
-        <ThreeDotsLoading />
-      ) : (
+        <LoadingComponent />
+      ) : classnames?.data?.length !== undefined ? (
         <div className="overflow-x-auto w-full">
           <Table>
             <TableCaption>Semua data kelas terbaru</TableCaption>
@@ -126,6 +138,12 @@ const AllMajor = () => {
             <TableBody>{renderTable()}</TableBody>
           </Table>
         </div>
+      ) : (
+        <EmptyStateIllustration
+          headerText={"Belum terdapat data untuk ditampilkan"}
+          bodyText={"Buat data kelas terlebih dahulu"}
+          illustration={"/images/match_not_found.svg"}
+        />
       )}
     </DashboardLayout>
   );

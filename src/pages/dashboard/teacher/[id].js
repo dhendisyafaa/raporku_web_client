@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { useRouter } from "next/router";
 
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import FormDeleteTeacher from "@/components/form/FormDeleteTeacher";
 import FormEditTeacher from "@/components/form/FormEditTeacher";
 import {
@@ -29,7 +29,10 @@ const DetailTeacher = () => {
   const router = useRouter();
   const teacherId = router.query.id;
   return (
-    <DashboardLayout>
+    <DashboardLayout
+      titleHeader={`Infomasi detail data guru`}
+      messageHeader={"Anda dapat mengubah dan menghapus data guru"}
+    >
       <ProfileForm teacherId={teacherId} />
     </DashboardLayout>
   );
@@ -40,7 +43,7 @@ const ProfileForm = ({ teacherId }) => {
   const teacher = teachers?.data;
   const { push } = useRouter();
 
-  if (!isSuccess) return <ThreeDotsLoading />;
+  if (!isSuccess) return <LoadingComponent />;
   return (
     <div>
       <div className="grid lg:flex items-center grid-cols-1 gap-4 p-3">
@@ -53,7 +56,9 @@ const ProfileForm = ({ teacherId }) => {
             />
             <AvatarFallback>{teacher?.nama_lengkap}</AvatarFallback>
           </Avatar>
-          <Badge>Wali Kelas {teacher?.wali_kelas.nama_kelas}</Badge>
+          {teacher?.wali_kelas && (
+            <Badge>Wali Kelas {teacher?.wali_kelas?.nama_kelas}</Badge>
+          )}
         </div>
         <div className="grid md:grid-cols-3 gap-10">
           <div className="space-y-3">
@@ -125,7 +130,7 @@ const ProfileForm = ({ teacherId }) => {
                 Update data
               </Button>
             </DialogTrigger>
-            <DialogContent className="h-[95vh] max-w-4xl overflow-y-auto">
+            <DialogContent className="h-fit max-w-4xl overflow-y-auto">
               <FormEditTeacher teacher={teacher} />
             </DialogContent>
           </Dialog>

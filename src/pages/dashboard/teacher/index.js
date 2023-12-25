@@ -11,10 +11,11 @@ import {
 import { useAllteacher } from "@/pages/api/resolver/teacherResolver";
 import { useState } from "react";
 
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useAllTeacher } from "@/pages/api/resolver/teacherResolver";
+import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 
 const AllTeacher = () => {
   const { data: teachers, isLoading } = useAllTeacher();
@@ -60,8 +61,8 @@ const AllTeacher = () => {
       messageHeader={"Semua data guru pada sekolah ini"}
     >
       {isLoading ? (
-        <ThreeDotsLoading />
-      ) : (
+        <LoadingComponent />
+      ) : teachers?.data?.length !== undefined ? (
         <div className="overflow-x-auto w-full">
           <Table>
             <TableCaption>Semua data guru terbaru</TableCaption>
@@ -71,6 +72,12 @@ const AllTeacher = () => {
             <TableBody>{renderTable()}</TableBody>
           </Table>
         </div>
+      ) : (
+        <EmptyStateIllustration
+          headerText={"Belum terdapat data untuk ditampilkan"}
+          bodyText={"Buat data guru terlebih dahulu"}
+          illustration={"/images/match_not_found.svg"}
+        />
       )}
     </DashboardLayout>
   );

@@ -1,10 +1,25 @@
+import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 import SkeletonCard from "@/components/skeleton/SkeletonCard";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useAllStudent } from "@/pages/api/resolver/studentResolver";
+import useUserData from "@/hooks/useUserData";
+import { useAllStudentByClass } from "@/pages/api/resolver/studentResolver";
 import { Bold, Card, Text } from "@tremor/react";
+import AverageStudentScoreByClass from "../analythics/AverageStudentScoreByClass";
+import RankingGraph from "../analythics/RankingGraph";
 
 const ContentDashboardGuru = () => {
-  const { data: studentData, isLoading } = useAllStudent();
+  const { userData } = useUserData();
+  const { data: studentData, isLoading } = useAllStudentByClass(
+    userData?.id_kelas
+  );
+
+  if (studentData?.data.length === undefined)
+    return (
+      <EmptyStateIllustration
+        headerText={"Belum terdapat data untuk ditampilkan"}
+        bodyText={"Buat rapor siswa terlebih dahulu"}
+        illustration={"/images/match_not_found.svg"}
+      />
+    );
 
   if (isLoading) return <SkeletonCard />;
 
@@ -46,7 +61,8 @@ const ContentDashboardGuru = () => {
             </Card>
           ))}
         </div>
-        <div className="flex flex-col gap-3 p-1">test</div>
+        <RankingGraph />
+        <AverageStudentScoreByClass />
       </div>
     </>
   );

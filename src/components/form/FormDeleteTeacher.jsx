@@ -39,18 +39,21 @@ const FormDeleteTeacher = ({ namaLengkap, idTeacher }) => {
   });
 
   const onSubmit = async (values) => {
-    setloadingButton(true);
-    try {
-      values.confirm === namaLengkap
-        ? await deleteTeacherData(idTeacher)
-        : setNotSame(true);
-      setloadingButton(false);
-      push("/dashboard/teacher");
-    } catch (error) {
-      setloadingButton(false);
-      console.log("error catch", error);
+    if (values.confirm !== namaLengkap) {
+      setNotSame(true);
+    } else if (values.confirm === namaLengkap) {
+      setloadingButton(true);
+      try {
+        await deleteTeacherData(idTeacher);
+        setloadingButton(false);
+        push("/dashboard/teacher");
+      } catch (error) {
+        setloadingButton(false);
+        console.log("error catch", error);
+      }
     }
   };
+
   return (
     <div>
       <Form {...form}>
@@ -65,7 +68,7 @@ const FormDeleteTeacher = ({ namaLengkap, idTeacher }) => {
                 </FormControl>
                 {notSame && (
                   <p className="text-sm font-medium text-destructive">
-                    Isi tidak sama dengan nama siswa
+                    Isi tidak sama dengan nama guru
                   </p>
                 )}
                 <FormMessage />

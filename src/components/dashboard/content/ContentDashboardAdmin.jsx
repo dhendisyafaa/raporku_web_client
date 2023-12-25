@@ -4,6 +4,8 @@ import { useAllStudent } from "@/pages/api/resolver/studentResolver";
 import { useAllTeacher } from "@/pages/api/resolver/teacherResolver";
 import { Bold, Card, Text } from "@tremor/react";
 import ComparisonStudentTeacher from "../analythics/ComparisonStudentTeacher";
+import TotalStudentByGender from "../analythics/TotalStudentByGender";
+import TotalStudentBySchoolYears from "../analythics/TotalStudentBySchoolYears";
 
 const ContentDashboardAdmin = () => {
   const { isLoading, userData } = useUserData();
@@ -39,12 +41,14 @@ const ContentDashboardAdmin = () => {
             </Card>
           ))}
         </div>
-        <div className="flex flex-col gap-3 p-1">
+        <div className="flex md:flex-row flex-col gap-3 p-1">
           <ComparisonStudentTeacher
             teacher={teachers?.data.length}
             student={students?.data.length}
           />
+          <TotalStudentByGender student={students?.data} />
         </div>
+        <TotalStudentBySchoolYears />
       </div>
     </>
   );

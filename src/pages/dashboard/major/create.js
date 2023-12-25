@@ -44,7 +44,7 @@ const CreateMajor = () => {
       });
       setloadingButton(false);
       toast({
-        title: "Berhasil menyimpan perubahan",
+        title: "Berhasil membuat jurusan",
       });
     } catch (error) {
       setloadingButton(false);
@@ -52,7 +52,9 @@ const CreateMajor = () => {
       if (error.response) {
         toast({
           variant: "destructive",
-          title: `${error.response?.data?.error}`,
+          title: `${
+            error.response?.data?.error || error.response?.data?.errors[0].error
+          }`,
         });
       }
     }
@@ -87,7 +89,7 @@ const CreateMajor = () => {
                   className="flex gap-3 w-full md:max-w-fit"
                 >
                   {loadingButton && <LoadingOval />}
-                  Simpan Perubahan
+                  Buat jurusan
                 </Button>
               </div>
             </div>

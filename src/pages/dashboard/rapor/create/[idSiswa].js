@@ -1,4 +1,5 @@
 import LoadingOval from "@/components/common/LoadingOval";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -49,9 +50,11 @@ const CreateRapor = () => {
   const { data: subjects, isLoading: loadSubjects } = useAllSubject();
   const { userId } = useUserData();
   const detailStudent = student?.data;
+  console.log("detailStudent", detailStudent);
   const subject = subjects?.data;
   const { mutateAsync: createRapor } = useCreateRapor();
 
+  // FIX
   const handleInputChange = (idMataPelajaran, type, value) => {
     const index = nilaiMataPelajaran.findIndex(
       (item) => item.id_mata_pelajaran === idMataPelajaran
@@ -109,15 +112,15 @@ const CreateRapor = () => {
 
   const formSchema = z.object({
     nama_semester: z.enum(["1", "2", "3", "4", "5", "6"]),
-    kode_tahun_ajaran: z.string().min(2, {
-      message: "Tahun ajaran wajib untuk diisi",
-    }),
+    // kode_tahun_ajaran: z.string().min(2, {
+    //   message: "Tahun ajaran wajib untuk diisi",
+    // }),
   });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      kode_tahun_ajaran: "",
+      kode_tahun_ajaran: `${detailStudent?.kode_tahun_ajaran}`,
     },
   });
 
@@ -129,7 +132,7 @@ const CreateRapor = () => {
         id_guru: userId,
         id_kelas: detailStudent.id_kelas,
         nama_semester: values.nama_semester,
-        kode_tahun_ajaran: values.kode_tahun_ajaran,
+        kode_tahun_ajaran: detailStudent?.kode_tahun_ajaran,
         nilai_mata_pelajaran: nilaiMataPelajaran,
       };
       await createRapor(data);
@@ -144,16 +147,23 @@ const CreateRapor = () => {
       if (error.response) {
         toast({
           variant: "destructive",
-          title: "Gagal membuat rapor",
+          title: `${
+            error.response?.data?.error ||
+            error.response?.data?.errors[0].error ||
+            "Gagal membuat rapor"
+          }`,
         });
       }
     }
   };
 
-  if (isLoading) return <p className="text-5xl">load...</p>;
+  if (isLoading) return <LoadingComponent />;
 
   return (
-    <DashboardLayout titleHeader={"test"} messageHeader={"test"}>
+    <DashboardLayout
+      titleHeader={"Buat laporan belajar siswa"}
+      messageHeader={"Data yang dimasukkan wajib data yang sebenarnya"}
+    >
       <Toaster />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -213,7 +223,7 @@ const CreateRapor = () => {
                     <FormItem>
                       <FormLabel>Tahun ajaran</FormLabel>
                       <FormControl>
-                        <Input type="text" {...field} />
+                        <Input type="text" disabled {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

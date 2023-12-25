@@ -138,7 +138,7 @@ const FormEditAvatar = ({ image, username, idUser, levelUser }) => {
         </form>
       </Form>
       <div
-        className="text-primary border w-fit mt-3 cursor-pointer hover:underline decoration-primary"
+        className="text-primary w-fit mt-3 cursor-pointer hover:underline decoration-primary"
         onClick={() => handleRemoveAvatar()}
       >
         Hapus Foto Profile

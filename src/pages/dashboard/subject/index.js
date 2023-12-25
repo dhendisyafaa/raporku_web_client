@@ -10,25 +10,12 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
-import FormDeleteMajor from "@/components/form/FormDeleteMajor";
-import FormEditMajor from "@/components/form/FormEditMajor";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useAllClassname } from "@/pages/api/resolver/classnameResolver";
-import { useRouter } from "next/router";
-import FormDeleteClassname from "@/components/form/FormDeleteClassname";
-import FormEditClassname from "@/components/form/FormEditClassname";
+import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import { useAllSubject } from "@/pages/api/resolver/subjectResolver";
+import { useRouter } from "next/router";
 
-const AllMajor = () => {
+const AllSubject = () => {
   const { data: subjects, isLoading } = useAllSubject();
   const [loadingButton, setloadingButton] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -49,7 +36,7 @@ const AllMajor = () => {
             {subject.nama_pelajaran}
           </TableCell>
           <TableCell className="font-semibold">{subject.bobot_nilai}</TableCell>
-          <TableCell>
+          {/* <TableCell>
             <div className="flex gap-1">
               <Dialog>
                 <DialogTrigger asChild>
@@ -58,12 +45,7 @@ const AllMajor = () => {
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
-                  {/* <FormEditClassname
-                    infoClassname={{
-                      classname: subject.nama_kelas,
-                      id_classname: subject.id_kelas,
-                    }}
-                  /> */}
+                  <p>test</p>
                 </DialogContent>
               </Dialog>
               <Dialog>
@@ -83,16 +65,11 @@ const AllMajor = () => {
                       &quot; dalam kotak dibawah
                     </DialogDescription>
                   </DialogHeader>
-                  {/* <FormDeleteClassname
-                    infoClassname={{
-                      classname: subject.nama_kelas,
-                      id_classname: subject.id_kelas,
-                    }}
-                  /> */}
+                  <p>delete</p>
                 </DialogContent>
               </Dialog>
             </div>
-          </TableCell>
+          </TableCell> */}
         </TableRow>
       );
     });
@@ -104,7 +81,7 @@ const AllMajor = () => {
       "Kode Mata Pelajaran",
       "Nama Mata Pelajaran",
       "Bobot",
-      "Actions",
+      // "Actions",
     ];
     return dataTableHead.map((data, index) => (
       <TableHead key={index + 1}>{data}</TableHead>
@@ -116,8 +93,8 @@ const AllMajor = () => {
       messageHeader={"Semua data mata pelajaran"}
     >
       {isLoading ? (
-        <ThreeDotsLoading />
-      ) : (
+        <LoadingComponent />
+      ) : subjects?.data?.length !== undefined ? (
         <div className="overflow-x-auto w-full">
           <Table>
             <TableCaption>Semua data mata pelajaran terbaru</TableCaption>
@@ -127,9 +104,15 @@ const AllMajor = () => {
             <TableBody>{renderTable()}</TableBody>
           </Table>
         </div>
+      ) : (
+        <EmptyStateIllustration
+          headerText={"Belum terdapat data untuk ditampilkan"}
+          bodyText={"Buat data mata pelajaran terlebih dahulu"}
+          illustration={"/images/match_not_found.svg"}
+        />
       )}
     </DashboardLayout>
   );
 };
 
-export default AllMajor;
+export default AllSubject;

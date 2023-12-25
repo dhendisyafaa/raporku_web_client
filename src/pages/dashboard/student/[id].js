@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { useRouter } from "next/router";
 
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import FormDeleteStudent from "@/components/form/FormDeleteStudent";
 import FormEditStudent from "@/components/form/FormEditStudent";
 import {
@@ -29,7 +29,10 @@ const DetailStudent = () => {
   const router = useRouter();
   const studentId = router.query.id;
   return (
-    <DashboardLayout>
+    <DashboardLayout
+      titleHeader={`Infomasi detail data siswa`}
+      messageHeader={"Anda dapat mengubah dan menghapus data siswa"}
+    >
       <ProfileForm studentId={studentId} />
     </DashboardLayout>
   );
@@ -40,7 +43,7 @@ const ProfileForm = ({ studentId }) => {
   const student = students?.data;
   const { push } = useRouter();
 
-  if (!isSuccess) return <ThreeDotsLoading />;
+  if (!isSuccess) return <LoadingComponent />;
   return (
     <div>
       <div className="grid lg:flex items-center grid-cols-1 gap-4 p-3">
@@ -53,7 +56,7 @@ const ProfileForm = ({ studentId }) => {
             />
             <AvatarFallback>{student?.nama_lengkap}</AvatarFallback>
           </Avatar>
-          <Badge>{student?.kelas.nama_kelas}</Badge>
+          <Badge>{student?.kelas?.nama_kelas}</Badge>
         </div>
         <div className="grid md:grid-cols-3 gap-10">
           <div className="space-y-3">
@@ -163,7 +166,7 @@ const ProfileForm = ({ studentId }) => {
                 </DialogDescription>
                 <FormDeleteStudent
                   namaLengkap={student?.nama_lengkap}
-                  idSiswa={studentId}
+                  idStudent={studentId}
                 />
               </DialogHeader>
             </DialogContent>

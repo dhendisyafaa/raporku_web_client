@@ -1,8 +1,10 @@
 import { baseUrl } from "@/configs/config";
+import { convertToURI } from "@/lib/convertObjectToURI";
 import axios from "axios";
 
-const getAllStudent = () => {
-  return axios.get(`${baseUrl}/siswa`);
+const getAllStudent = (params = {}) => {
+  const objString = convertToURI(params);
+  return axios.get(`${baseUrl}/siswa/${objString}`);
 };
 
 const getAllStudentByClass = (id) => {

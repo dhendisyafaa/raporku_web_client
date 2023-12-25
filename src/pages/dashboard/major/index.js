@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { useState } from "react";
 
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import FormEditMajor from "@/components/form/FormEditMajor";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +24,7 @@ import {
 import { useAllMajor } from "@/pages/api/resolver/majorResolver";
 import { useRouter } from "next/router";
 import FormDeleteMajor from "@/components/form/FormDeleteMajor";
+import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 
 const AllMajor = () => {
   const { data: majors, isLoading } = useAllMajor();
@@ -96,12 +97,12 @@ const AllMajor = () => {
   };
   return (
     <DashboardLayout
-      titleHeader={"Buat laporan belajar siswa"}
-      messageHeader={"Data yang dimasukkan wajib data yang sebenarnya"}
+      titleHeader={"Tabel informasi semua jurusan"}
+      messageHeader={"Semua data jurusan"}
     >
       {isLoading ? (
-        <ThreeDotsLoading />
-      ) : (
+        <LoadingComponent />
+      ) : majors?.data?.length !== undefined ? (
         <div className="overflow-x-auto w-full">
           <Table>
             <TableCaption>Semua data jurusan terbaru</TableCaption>
@@ -111,6 +112,12 @@ const AllMajor = () => {
             <TableBody>{renderTable()}</TableBody>
           </Table>
         </div>
+      ) : (
+        <EmptyStateIllustration
+          headerText={"Belum terdapat data untuk ditampilkan"}
+          bodyText={"Buat data jurusan terlebih dahulu"}
+          illustration={"/images/match_not_found.svg"}
+        />
       )}
     </DashboardLayout>
   );

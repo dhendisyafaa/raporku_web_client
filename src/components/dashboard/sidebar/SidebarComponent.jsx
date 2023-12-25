@@ -14,6 +14,7 @@ import useUserData from "@/hooks/useUserData";
 import {
   BarChart3,
   BookCheck,
+  CalendarDays,
   GraduationCap,
   HomeIcon,
   LogOut,
@@ -151,6 +152,23 @@ const SidebarComponent = ({
         {
           href: "/dashboard/subject/create",
           title: "Tambah mata pelajaran",
+        },
+      ]}
+    />,
+    <NavigationSidebar
+      key={8}
+      href={""}
+      icon={<CalendarDays className="w-6 h-6" />}
+      title={"Kelola Tahun Ajaran"}
+      multiLevel={true}
+      level={[
+        {
+          href: "/dashboard/school_year",
+          title: "Lihat tahun ajaran",
+        },
+        {
+          href: "/dashboard/school_year/create",
+          title: "Tambah tahun ajaran",
         },
       ]}
     />,

@@ -12,8 +12,7 @@ const useUpdateAvatar = () => {
       });
     },
     onError: (error, variables, context) => {
-      console.error("Gagal menghapus foto profile", error);
-      // Tampilkan pemberitahuan kesalahan di frontend jika diperlukan
+      console.error("Gagal memperbarui foto profile", error);
     },
   });
 };
@@ -29,7 +28,6 @@ const useRemoveAvatar = () => {
     },
     onError: (error, variables, context) => {
       console.error("Gagal menghapus foto profile", error);
-      // Tampilkan pemberitahuan kesalahan di frontend jika diperlukan
     },
   });
 };

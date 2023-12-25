@@ -9,7 +9,7 @@ const SheetSidebar = () => {
         <SheetTrigger>
           <MenuIcon />
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent side={"left"}>
           <SidebarComponent style={"flex flex-col gap-5 h-full"} />
         </SheetContent>
       </Sheet>

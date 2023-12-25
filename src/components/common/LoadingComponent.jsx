@@ -1,9 +1,14 @@
 import { cn } from "@/lib/utils";
 import { ThreeDots } from "react-loader-spinner";
 
-const ThreeDotsLoading = ({ className }) => {
+const LoadingComponent = ({ className }) => {
   return (
-    <div className={cn("flex justify-center items-center", className)}>
+    <div
+      className={cn(
+        "flex justify-center items-center w-full h-full",
+        className
+      )}
+    >
       <ThreeDots
         height="20"
         width="20"
@@ -16,4 +21,4 @@ const ThreeDotsLoading = ({ className }) => {
   );
 };
 
-export default ThreeDotsLoading;
+export default LoadingComponent;

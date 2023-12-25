@@ -1,3 +1,4 @@
+import LoadingComponent from "@/components/common/LoadingComponent";
 import LoadingOval from "@/components/common/LoadingOval";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Button } from "@/components/ui/button";
@@ -23,18 +24,21 @@ import { useAllClassname } from "@/pages/api/resolver/classnameResolver";
 import { useCreateStudent } from "@/pages/api/resolver/studentResolver";
 import { useCreateTeacher } from "@/pages/api/resolver/teacherResolver";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const CreateTeacher = () => {
   const [loadingButton, setloadingButton] = useState(false);
+  const [emailTeacher, setEmailTeacher] = useState("@guru.smk.belajar.id");
   const { toast } = useToast();
+  const { push } = useRouter();
   const { mutateAsync: createTeacherData } = useCreateTeacher();
   const { data: classnames, isLoading } = useAllClassname();
 
   const renderClassname = () => {
-    if (isLoading) return <p>loading...</p>;
+    if (isLoading) return <LoadingComponent />;
     return classnames?.data.map((classname) => (
       <SelectItem key={classname.id_kelas} value={`${classname.id_kelas}`}>
         {classname.nama_kelas}
@@ -91,20 +95,33 @@ const CreateTeacher = () => {
 
   const onSubmit = async (values) => {
     setloadingButton(true);
-    console.log("values", values);
     try {
-      await createTeacherData(values);
+      await createTeacherData({
+        nip: values.nip,
+        email: `${values.email}${emailTeacher}`,
+        nama_lengkap: values.nama_lengkap,
+        tanggal_lahir: values.tanggal_lahir,
+        alamat: values.alamat,
+        jenis_kelamin: values.jenis_kelamin,
+        no_telepon: values.no_telepon,
+        tempat_lahir: values.tempat_lahir,
+        pendidikan_tertinggi: values.pendidikan_tertinggi,
+        id_kelas: values.id_kelas,
+      });
       setloadingButton(false);
       toast({
-        title: "Berhasil menyimpan perubahan",
+        title: "Berhasil membuat data guru",
       });
+      await push("/dashboard/teacher");
     } catch (error) {
       setloadingButton(false);
       console.log("error catch", error);
       if (error.response) {
         toast({
           variant: "destructive",
-          title: `${error.response?.data?.errors[0].error}`,
+          title: `${
+            error.response?.data?.error || error.response?.data?.errors[0].error
+          }`,
         });
       }
     }
@@ -206,8 +223,11 @@ const CreateTeacher = () => {
                 control={form.control}
                 name="pendidikan_tertinggi"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Pendidikan Tertinggi</FormLabel>
+                  <FormItem className="lg:col-span-2">
+                    <FormLabel>Pendidikan Tertinggi </FormLabel>
+                    <span className="text-xs text-gray-600">
+                      Contoh: S.Pd, S. Kom
+                    </span>
                     <FormControl>
                       <Input type="text" {...field} />
                     </FormControl>
@@ -238,11 +258,22 @@ const CreateTeacher = () => {
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="lg:col-span-2">
                     <FormLabel>Email Guru</FormLabel>
-                    <FormControl>
-                      <Input type="text" {...field} />
-                    </FormControl>
+                    <div className="flex gap-1">
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="Email"
+                          className="w-[60%]"
+                          {...field}
+                        />
+                      </FormControl>
+                      <div className="w-[40%] border flex justify-center items-center rounded-md">
+                        <p className="text-xs lg:text-sm"> {emailTeacher}</p>
+                      </div>
+                    </div>
+
                     <FormMessage />
                   </FormItem>
                 )}
@@ -258,7 +289,7 @@ const CreateTeacher = () => {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger>
                           <SelectValue placeholder="Pilih Kelas" />
                         </SelectTrigger>
                         <SelectContent>{renderClassname()}</SelectContent>
@@ -280,8 +311,8 @@ const CreateTeacher = () => {
               </Button>
             </div>
             <p className="text-foreground text-center text-xs mt-4">
-              Terdapat beberapa bagian yang tidak dapat diubah kembali
               <span className="text-red-600">*</span>
+              Terdapat beberapa bagian yang tidak dapat diubah kembali
             </p>
           </form>
         </Form>

@@ -8,9 +8,18 @@ import {
   getStudentById,
   updateStudentData,
 } from "../services/studentApi";
+import { useQuery } from "@tanstack/react-query";
 
-const useAllStudent = () =>
-  useQueryNoRefecth(["all student"], async () => await getAllStudent());
+const useAllStudent = (params) => {
+  const { data, isLoading, refetch, error, isFetching } = useQuery({
+    queryKey: [`all student`],
+    queryFn: () =>
+      getAllStudent({
+        q: params,
+      }),
+  });
+  return { data, isLoading, refetch, error, isFetching };
+};
 
 const useAllStudentByClass = (id) =>
   useQueryNoRefecth(

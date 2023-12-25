@@ -5,4 +5,23 @@ const getChartSiswa = (id) => {
   return axios.get(`${baseUrl}/chart-siswa/${id}`);
 };
 
-export { getChartSiswa };
+const getChartRanking = (idKelas, semester) => {
+  return axios.get(
+    `${baseUrl}/kelas-ranking/${idKelas}?nama_semester=${semester}`
+  );
+};
+
+const getTotalStudentByYears = () => {
+  return axios.get(`${baseUrl}/chart-data/tahun-ajaran`);
+};
+
+const getAverageStudentScore = (idKelas) => {
+  return axios.get(`${baseUrl}/total-nilai/${idKelas}`);
+};
+
+export {
+  getChartRanking,
+  getChartSiswa,
+  getAverageStudentScore,
+  getTotalStudentByYears,
+};

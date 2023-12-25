@@ -1,5 +1,4 @@
 import MulokGraph from "@/components/dashboard/analythics/MulokGraph";
-import RankingGraph from "@/components/dashboard/analythics/RankingGraph";
 import SkeletonCard from "@/components/skeleton/SkeletonCard";
 import useUserData from "@/hooks/useUserData";
 import { Bold, Card, Text } from "@tremor/react";

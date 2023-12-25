@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const FormDeleteStudent = ({ namaLengkap, idSiswa }) => {
+const FormDeleteStudent = ({ namaLengkap, idStudent }) => {
   const [loadingButton, setloadingButton] = useState(false);
   const { mutateAsync: deleteStudentData } = useDeleteStudent();
   const [notSame, setNotSame] = useState(false);
@@ -35,21 +35,21 @@ const FormDeleteStudent = ({ namaLengkap, idSiswa }) => {
   });
 
   const onSubmit = async (values) => {
-    console.log("values", values);
-    setloadingButton(true);
-    try {
-      {
-        values.confirm === namaLengkap
-          ? await deleteStudentData(idSiswa)
-          : setNotSame(true);
+    if (values.confirm !== namaLengkap) {
+      setNotSame(true);
+    } else if (values.confirm === namaLengkap) {
+      setloadingButton(true);
+      try {
+        await deleteStudentData(idStudent);
+        setloadingButton(false);
+        push("/dashboard/student");
+      } catch (error) {
+        setloadingButton(false);
+        console.log("error catch", error);
       }
-      setloadingButton(false);
-      push("/dashboard/student");
-    } catch (error) {
-      setloadingButton(false);
-      console.log("error catch", error);
     }
   };
+
   return (
     <div>
       <Form {...form}>

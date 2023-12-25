@@ -1,4 +1,4 @@
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import useUserData from "@/hooks/useUserData";
 import { useChartSiswa } from "@/pages/api/resolver/graphResolver";
 import { AreaChart, Card, Title } from "@tremor/react";
@@ -8,7 +8,7 @@ const MulokGraph = () => {
   const { data: gradeStudent, isLoading } = useChartSiswa(userId);
   const chartStudent = gradeStudent?.data;
 
-  if (isLoading) return <ThreeDotsLoading className={"w-full h-full"} />;
+  if (isLoading) return <LoadingComponent />;
 
   return (
     <Card>
@@ -25,7 +25,7 @@ const MulokGraph = () => {
           "Semester 5",
           "Semester 6",
         ]}
-        colors={["indigo", "cyan", "amber", "emerald", "fuchsia", "red"]}
+        colors={["red", "violet", "teal", "rose", "purple", "orange"]}
         maxValue={100}
         minValue={60}
         yAxisWidth={40}

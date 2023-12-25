@@ -34,17 +34,18 @@ const FormDeleteClassname = ({ infoClassname }) => {
   });
 
   const onSubmit = async (values) => {
-    setloadingButton(true);
-    try {
-      {
-        values.confirm === infoClassname.classname
-          ? await deleteClassname(infoClassname.id_classname)
-          : setNotSame(true);
+    console.log("test", values.confirm === infoClassname.classname);
+    if (values.confirm !== infoClassname.classname) {
+      setNotSame(true);
+    } else if (values.confirm === infoClassname.classname) {
+      setloadingButton(true);
+      try {
+        await deleteClassname(infoClassname.id_classname);
+        setloadingButton(false);
+      } catch (error) {
+        setloadingButton(false);
+        console.log("error catch", error);
       }
-      setloadingButton(false);
-    } catch (error) {
-      setloadingButton(false);
-      console.log("error catch", error);
     }
   };
 

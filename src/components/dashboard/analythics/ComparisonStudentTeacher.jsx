@@ -1,48 +1,19 @@
 import { Card, DonutChart, Title } from "@tremor/react";
 
-const ComparisonStudentTeacher = ({ teacher, student }) => {
-  console.log("teacher", teacher);
-  console.log("student", student);
+const ComparisonStudentTeacher = ({ teacher = 0, student = 0 }) => {
   const compare = [
     {
       jabatan: "Siswa",
-      jumlah: teacher,
+      jumlah: student,
     },
     {
       jabatan: "Guru",
-      jumlah: student,
-    },
-  ];
-
-  const cities = [
-    {
-      name: "New York",
-      sales: 9800,
-    },
-    {
-      name: "London",
-      sales: 4567,
-    },
-    {
-      name: "Hong Kong",
-      sales: 3908,
-    },
-    {
-      name: "San Francisco",
-      sales: 2400,
-    },
-    {
-      name: "Singapore",
-      sales: 1908,
-    },
-    {
-      name: "Zurich",
-      sales: 1398,
+      jumlah: teacher,
     },
   ];
 
   return (
-    <Card className="max-w-sm">
+    <Card className="w-full">
       <Title>Perbandingan jumlah guru dan siswa</Title>
       <DonutChart
         className="mt-6"

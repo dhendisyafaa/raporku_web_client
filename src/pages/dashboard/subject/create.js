@@ -18,7 +18,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const CreateMajor = () => {
+const CreateSubject = () => {
   const [loadingButton, setloadingButton] = useState(false);
   const { toast } = useToast();
   const { mutateAsync: createSubject } = useCreateSubject();
@@ -54,7 +54,7 @@ const CreateMajor = () => {
       });
       setloadingButton(false);
       toast({
-        title: "Berhasil menyimpan data",
+        title: "Berhasil membuat mata pelajaran",
       });
     } catch (error) {
       setloadingButton(false);
@@ -62,7 +62,9 @@ const CreateMajor = () => {
       if (error.response) {
         toast({
           variant: "destructive",
-          title: `${error.response?.data?.error}`,
+          title: `${
+            error.response?.data?.error || error.response?.data?.errors[0].error
+          }`,
         });
       }
     }
@@ -125,7 +127,7 @@ const CreateMajor = () => {
                 className="flex gap-3 w-full md:max-w-fit"
               >
                 {loadingButton && <LoadingOval />}
-                Simpan Perubahan
+                Buat Mata Pelajaran
               </Button>
             </div>
             <p className="text-foreground text-center text-xs mt-4">
@@ -138,4 +140,4 @@ const CreateMajor = () => {
   );
 };
 
-export default CreateMajor;
+export default CreateSubject;

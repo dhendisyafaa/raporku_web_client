@@ -57,7 +57,7 @@ const LoginFormStudent = () => {
   const onSubmit = async (values) => {
     setloadingButton(true);
     try {
-      const callbackUrl = query.callbackUrl || "/";
+      const callbackUrl = query.callbackUrl || "/dashboard";
       const signInData = await signIn("credentials", {
         ...values,
         redirect: false,
@@ -70,7 +70,7 @@ const LoginFormStudent = () => {
         });
         setloadingButton(false);
         push(callbackUrl);
-        // push("/dashboard");
+        push("/dashboard");
       } else {
         setloadingButton(false);
         console.log("signInData?.error", signInData);
@@ -86,8 +86,11 @@ const LoginFormStudent = () => {
       if (error.response) {
         toast({
           variant: "destructive",
-          title: "Gagal untuk login!",
-          description: "NIS atau kata sandi salah",
+          title: `${
+            error.response?.data?.error ||
+            error.response?.data?.errors[0].error ||
+            "NIS atau kata sandi salah"
+          }`,
         });
       }
     }

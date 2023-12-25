@@ -12,14 +12,16 @@ import { Input } from "@/components/ui/input";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
 import { useUpdateClassname } from "@/pages/api/resolver/classnameResolver";
-import { useUpdateMajor } from "@/pages/api/resolver/majorResolver";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const FormEditClassname = ({ infoClassname }) => {
-  console.log("infoClassname", infoClassname);
+  console.log(
+    "🚀 ~ file: FormEditClassname.jsx:21 ~ FormEditClassname ~ infoClassname:",
+    infoClassname
+  );
   const [loadingButton, setloadingButton] = useState(false);
   const { toast } = useToast();
   const { mutateAsync: updateClassname } = useUpdateClassname();
@@ -45,6 +47,7 @@ const FormEditClassname = ({ infoClassname }) => {
         {
           data: {
             nama_kelas: values.classname || infoClassname.classname,
+            id_jurusan: infoClassname.id_jurusan,
           },
         },
       ]);

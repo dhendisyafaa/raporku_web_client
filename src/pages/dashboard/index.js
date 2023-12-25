@@ -9,7 +9,7 @@ import { useUserStateFunction } from "@/constate/provider/useUserProfile";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useUserById } from "../api/resolver/userResolver";
-import ThreeDotsLoading from "@/components/common/ThreeDotsLoading";
+import LoadingComponent from "@/components/common/LoadingComponent.jsx";
 import useUserData from "@/hooks/useUserData";
 
 const DashboardPage = () => {
@@ -21,12 +21,7 @@ const DashboardPage = () => {
     admin: <ContentDashboardAdmin />,
   };
 
-  if (isLoading)
-    return (
-      <div className="w-full h-screen">
-        <ThreeDotsLoading />
-      </div>
-    );
+  if (isLoading) return <LoadingComponent />;
 
   let sayHai;
   if (level === "siswa") {

@@ -33,19 +33,20 @@ const FormDeleteMajor = ({ major, idMajor }) => {
   });
 
   const onSubmit = async (values) => {
-    setloadingButton(true);
-    try {
-      {
-        values.confirm === major
-          ? await deleteMajorData(idMajor)
-          : setNotSame(true);
+    if (values.confirm !== major) {
+      setNotSame(true);
+    } else if (values.confirm === major) {
+      setloadingButton(true);
+      try {
+        await deleteMajorData(idMajor);
+        setloadingButton(false);
+      } catch (error) {
+        setloadingButton(false);
+        console.log("error catch", error);
       }
-      setloadingButton(false);
-    } catch (error) {
-      setloadingButton(false);
-      console.log("error catch", error);
     }
   };
+
   return (
     <div>
       <Form {...form}>

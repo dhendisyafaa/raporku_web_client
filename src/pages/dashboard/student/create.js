@@ -1,3 +1,4 @@
+import LoadingComponent from "@/components/common/LoadingComponent";
 import LoadingOval from "@/components/common/LoadingOval";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useAllClassname } from "@/pages/api/resolver/classnameResolver";
 import { useCreateStudent } from "@/pages/api/resolver/studentResolver";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -31,9 +33,10 @@ const CreateStudent = () => {
   const { toast } = useToast();
   const { mutateAsync: createStudentData } = useCreateStudent();
   const { data: classnames, isLoading } = useAllClassname();
+  const { push } = useRouter();
 
   const renderClassname = () => {
-    if (isLoading) return <p>loading...</p>;
+    if (isLoading) return <LoadingComponent />;
     return classnames?.data.map((classname) => (
       <SelectItem key={classname.id_kelas} value={`${classname.id_kelas}`}>
         {classname.nama_kelas}
@@ -76,6 +79,9 @@ const CreateStudent = () => {
     tahun_masuk: z.string().min(2, {
       message: "Tahun masuk wajib untuk diisi",
     }),
+    kode_tahun_ajaran: z.string().min(2, {
+      message: "Tahun ajaran wajib untuk diisi",
+    }),
     tahun_lulus: z.string(),
   });
 
@@ -95,6 +101,7 @@ const CreateStudent = () => {
       nama_ayah: "",
       tahun_masuk: "",
       tahun_lulus: "",
+      kode_tahun_ajaran: "",
     },
   });
 
@@ -115,19 +122,23 @@ const CreateStudent = () => {
         tahun_masuk: values.tahun_masuk,
         tahun_lulus: values.tahun_lulus,
         id_kelas: values.id_kelas,
+        kode_tahun_ajaran: values.kode_tahun_ajaran,
       };
       await createStudentData(data);
       setloadingButton(false);
       toast({
         title: "Berhasil menyimpan perubahan",
       });
+      push("/dashboard/student");
     } catch (error) {
       setloadingButton(false);
       console.log("error catch", error);
       if (error.response) {
         toast({
           variant: "destructive",
-          title: `${error.response?.data?.errors[0].error}`,
+          title: `${
+            error.response?.data?.error || error.response?.data?.errors[0].error
+          }`,
         });
       }
     }
@@ -136,7 +147,7 @@ const CreateStudent = () => {
   return (
     <DashboardLayout
       titleHeader={"Tambah data siswa"}
-      messageHeader={"Pastikan data yang didaftarkan telah sesuai"}
+      messageHeader={"Pastikan data yang dimasukkan telah sesuai"}
     >
       <div className="flex w-full justify-around flex-col">
         <Toaster />
@@ -294,7 +305,7 @@ const CreateStudent = () => {
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
-                        <SelectTrigger className="w-[180px]">
+                        <SelectTrigger>
                           <SelectValue placeholder="Pilih Kelas" />
                         </SelectTrigger>
                         <SelectContent>{renderClassname()}</SelectContent>
@@ -330,6 +341,19 @@ const CreateStudent = () => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="kode_tahun_ajaran"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tahun Ajaran</FormLabel>
+                    <FormControl>
+                      <Input type="text" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
             <div className="flex w-full justify-end">
               <Button
@@ -342,8 +366,8 @@ const CreateStudent = () => {
               </Button>
             </div>
             <p className="text-foreground text-center text-xs mt-4">
-              Terdapat beberapa bagian yang tidak dapat diubah kembali
               <span className="text-red-600">*</span>
+              Terdapat beberapa bagian yang tidak dapat diubah kembali
             </p>
           </form>
         </Form>
