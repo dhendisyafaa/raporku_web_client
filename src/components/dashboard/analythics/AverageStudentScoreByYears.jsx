@@ -8,7 +8,7 @@ import useUserData from "@/hooks/useUserData";
 import LoadingComponent from "@/components/common/LoadingComponent";
 import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 
-const AverageStudentScoreByClass = () => {
+const AverageStudentScoreByYears = () => {
   const { userData } = useUserData();
   const { data: averageStudentScores, isLoading } = useAverageStudentScore(
     userData.id_kelas
@@ -43,4 +43,4 @@ const AverageStudentScoreByClass = () => {
   );
 };
 
-export default AverageStudentScoreByClass;
+export default AverageStudentScoreByYears;

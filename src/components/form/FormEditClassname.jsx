@@ -18,10 +18,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const FormEditClassname = ({ infoClassname }) => {
-  console.log(
-    "🚀 ~ file: FormEditClassname.jsx:21 ~ FormEditClassname ~ infoClassname:",
-    infoClassname
-  );
   const [loadingButton, setloadingButton] = useState(false);
   const { toast } = useToast();
   const { mutateAsync: updateClassname } = useUpdateClassname();

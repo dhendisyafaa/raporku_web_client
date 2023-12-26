@@ -163,7 +163,7 @@ const RaporTable = () => {
             <Card>
               <div className="flex items-center justify-between">
                 <Title>Nilai Akademik</Title>
-                {level === "guru" && (
+                {/* {level === "guru" && (
                   <div className="flex gap-1 items-center">
                     <Button
                       size="sm"
@@ -198,7 +198,7 @@ const RaporTable = () => {
                       <Trash className="mx-auto w-5 h-5" />
                     </Button>
                   </div>
-                )}
+                )} */}
               </div>
               <Table className="mt-5">
                 <TableHead>

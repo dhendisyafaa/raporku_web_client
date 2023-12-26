@@ -6,13 +6,21 @@ import { Bold, Card, Text } from "@tremor/react";
 import ComparisonStudentTeacher from "../analythics/ComparisonStudentTeacher";
 import TotalStudentByGender from "../analythics/TotalStudentByGender";
 import TotalStudentBySchoolYears from "../analythics/TotalStudentBySchoolYears";
+import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 
 const ContentDashboardAdmin = () => {
   const { isLoading, userData } = useUserData();
   const { data: teachers, isLoading: loadTeachers } = useAllStudent();
   const { data: students, isLoading: loadStudents } = useAllTeacher();
-
   if (loadTeachers || loadStudents) return <SkeletonCard />;
+  if (students?.data?.data?.length === 0 || teachers?.data?.data?.length === 0)
+    return (
+      <EmptyStateIllustration
+        headerText={"Belum terdapat visual untuk ditampilkan"}
+        bodyText={"Buat data siswa atau guru terlebih dahulu"}
+        illustration={"/images/ranking.svg"}
+      />
+    );
 
   const CARDS = [
     {

@@ -41,7 +41,7 @@ const LoginPage = () => {
             Belum punya akun? Terdapat masalah ketika login?{" "}
             <div
               onClick={() => push(`${phoneNumberAdminAvenir}`)}
-              className="underline underline-offset-4 decoration-primary hover:text-primary"
+              className="underline underline-offset-4 decoration-primary hover:text-primary cursor-pointer"
             >
               Hubungi admin.
             </div>

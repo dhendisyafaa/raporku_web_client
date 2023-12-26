@@ -8,11 +8,6 @@ import {
 import { AreaChart, Card, Title } from "@tremor/react";
 const TotalStudentBySchoolYears = () => {
   const { data: totalStudents, isLoading } = useTotalStudentByYears();
-  console.log(
-    "🚀 ~ file: TotalStudentBySchoolYears.jsx:11 ~ TotalStudentBySchoolYears ~ totalStudents:",
-    totalStudents
-  );
-
   if (isLoading) return <LoadingComponent />;
   return (
     <Card>
@@ -23,10 +18,8 @@ const TotalStudentBySchoolYears = () => {
         className="mt-6"
         data={totalStudents.data}
         index="kode_tahun_ajaran"
-        categories={[totalStudents.data.jumlah_peserta_didik]}
+        categories={["jumlah_peserta_didik"]}
         colors={["red", "violet", "teal", "rose", "purple", "orange"]}
-        maxValue={100}
-        minValue={60}
         yAxisWidth={40}
       />
     </Card>

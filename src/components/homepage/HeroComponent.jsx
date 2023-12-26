@@ -3,9 +3,12 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Button } from "../ui/button";
 import MarginLayout from "./MarginLayout";
+import { signIn, useSession } from "next-auth/react";
 
 const HeroComponent = () => {
   const { push } = useRouter();
+  const { data: session } = useSession();
+
   return (
     <MarginLayout>
       <div className="md:grid md:grid-cols-2 gap-3 mx-auto py-10 mt-20">
@@ -22,7 +25,8 @@ const HeroComponent = () => {
             size="lg"
             variant="primary"
             className="flex items-center gap-3 group"
-            onClick={() => push("/dashboard")}
+            // FIX
+            onClick={() => (session ? push("/dashboard") : signIn())}
           >
             Masuk ke Dashboard{" "}
             <ArrowRight className="group-hover:translate-x-2 duration-200" />

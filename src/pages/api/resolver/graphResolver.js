@@ -23,7 +23,7 @@ const useTotalStudentByYears = () =>
 
 const useAverageStudentScore = (idKelas) =>
   useQueryNoRefecth(
-    ["average student score by class", idKelas],
+    ["average student score by years, class id:", idKelas],
     async () => await getAverageStudentScore(idKelas)
   );
 

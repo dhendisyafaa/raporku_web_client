@@ -3,7 +3,7 @@ import SkeletonCard from "@/components/skeleton/SkeletonCard";
 import useUserData from "@/hooks/useUserData";
 import { useAllStudentByClass } from "@/pages/api/resolver/studentResolver";
 import { Bold, Card, Text } from "@tremor/react";
-import AverageStudentScoreByClass from "../analythics/AverageStudentScoreByClass";
+import AverageStudentScoreByYears from "../analythics/AverageStudentScoreByYears";
 import RankingGraph from "../analythics/RankingGraph";
 
 const ContentDashboardGuru = () => {
@@ -62,7 +62,7 @@ const ContentDashboardGuru = () => {
           ))}
         </div>
         <RankingGraph />
-        <AverageStudentScoreByClass />
+        <AverageStudentScoreByYears />
       </div>
     </>
   );

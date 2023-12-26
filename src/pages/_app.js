@@ -57,14 +57,26 @@ export default function App({
         <link rel="manifest" href="/manifest.json" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:url" content="https://yourdomain.com" />
-        <meta name="twitter:title" content="My awesome PWA app" />
-        <meta name="twitter:description" content="Best PWA app in the world!" />
+        <meta
+          name="twitter:title"
+          content="Raporku | Aplikasi Modern E-Rapor"
+        />
+        <meta
+          name="twitter:description"
+          content="Dibuat untuk kemudahan rapor elektronik"
+        />
         <meta name="twitter:image" content="/icons/twitter.png" />
         <meta name="twitter:creator" content="@DavidWShadow" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="My awesome PWA app" />
-        <meta property="og:description" content="Best PWA app in the world!" />
-        <meta property="og:site_name" content="My awesome PWA app" />
+        <meta property="og:title" content="Raporku | Aplikasi Modern E-Rapor" />
+        <meta
+          property="og:description"
+          content="Dibuat untuk kemudahan rapor elektronik"
+        />
+        <meta
+          property="og:site_name"
+          content="Raporku | Aplikasi Modern E-Rapor"
+        />
         <meta property="og:url" content="https://yourdomain.com" />
         <meta property="og:image" content="/icons/og.png" />
         <link
