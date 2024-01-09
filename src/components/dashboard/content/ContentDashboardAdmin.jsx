@@ -25,11 +25,11 @@ const ContentDashboardAdmin = () => {
   const CARDS = [
     {
       title: "Jumlah Siswa",
-      value: `${teachers?.data.length}`,
+      value: `${students?.data.length}`,
     },
     {
       title: "Jumlah Guru",
-      value: `${students?.data.length}`,
+      value: `${teachers?.data.length}`,
     },
   ];
 
