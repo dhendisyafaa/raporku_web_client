@@ -10,8 +10,8 @@ import EmptyStateIllustration from "@/components/common/EmptyStateIllustration";
 
 const ContentDashboardAdmin = () => {
   const { isLoading, userData } = useUserData();
-  const { data: teachers, isLoading: loadTeachers } = useAllStudent();
-  const { data: students, isLoading: loadStudents } = useAllTeacher();
+  const { data: students, isLoading: loadStudents } = useAllStudent();
+  const { data: teachers, isLoading: loadTeachers } = useAllTeacher();
   if (loadTeachers || loadStudents) return <SkeletonCard />;
   if (students?.data?.data?.length === 0 || teachers?.data?.data?.length === 0)
     return (
