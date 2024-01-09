@@ -1,5 +1,5 @@
-import LoadingOval from "@/components/common/LoadingOval";
 import LoadingComponent from "@/components/common/LoadingComponent.jsx";
+import LoadingOval from "@/components/common/LoadingOval";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,6 @@ const CreateRapor = () => {
   const { data: subjects, isLoading: loadSubjects } = useAllSubject();
   const { userId } = useUserData();
   const detailStudent = student?.data;
-  console.log("detailStudent", detailStudent);
   const subject = subjects?.data;
   const { mutateAsync: createRapor } = useCreateRapor();
 
@@ -119,9 +118,7 @@ const CreateRapor = () => {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      kode_tahun_ajaran: `${detailStudent?.kode_tahun_ajaran}`,
-    },
+    defaultValues: {},
   });
 
   const onSubmit = async (values) => {
@@ -223,7 +220,12 @@ const CreateRapor = () => {
                     <FormItem>
                       <FormLabel>Tahun ajaran</FormLabel>
                       <FormControl>
-                        <Input type="text" disabled {...field} />
+                        <Input
+                          type="text"
+                          defaultValue={detailStudent.kode_tahun_ajaran}
+                          disabled
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
